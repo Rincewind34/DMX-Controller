@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.rincewind</groupId>
+		<artifactId>dmxcontroller</artifactId>
+		<version>1.0.0-BETA</version>
+	</parent>
+
+	<artifactId>dmxcontroller-frontend</artifactId>
+	<version>1.0-BETA</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.rincewind</groupId>
+			<artifactId>dmxcontroller-common</artifactId>
+			<version>1.0.0-BETA</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<outputDirectory>${output.frontend}</outputDirectory>
+					<archive>
+						<manifest>
+							<mainClass>de.rincewind.dmxc.app.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<artifactSet>
+						<includes>
+							<include>io.netty:netty-all</include>
+							<include>de.rincewind:dmxcontroller-common</include>
+						</includes>
+					</artifactSet>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>dmxcontroller</artifactId>
+    <groupId>de.rincewind</groupId>
+    <version>1.0.0-BETA</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>dmxcontroller-common</artifactId>
+  <version>${project.parent.version}</version>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <outputDirectory>${output.common}</outputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
