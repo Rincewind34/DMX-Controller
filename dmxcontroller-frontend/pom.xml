@@ -41,6 +41,8 @@
 						<includes>
 							<include>io.netty:netty-all</include>
 							<include>de.rincewind:dmxcontroller-common</include>
+							<include>de.rincewind:commandlib</include>
+							<include>jline:jline</include>
 						</includes>
 					</artifactSet>
 				</configuration>
