@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<VBox styleClass="button-box">
+			<children>
+				<Button fx:id="button1" mnemonicParsing="false" text="Scene 1">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button2" mnemonicParsing="false" text="Scene 2">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button3" mnemonicParsing="false" text="Scene 3">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button4" mnemonicParsing="false" text="Scene 4">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button5" mnemonicParsing="false" text="Scene 5">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Region prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS" />
+				<ToggleButton fx:id="buttonRecord" mnemonicParsing="false"
+					text="Record">
+					<styleClass>
+						<String fx:value="basic-toggle-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</ToggleButton>
+				<Button fx:id="buttonClear" mnemonicParsing="false" text="Clear">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+			</children>
+			<HBox.margin>
+				<Insets right="40.0" />
+			</HBox.margin>
+		</VBox>
+		<Slider fx:id="faderIn" max="10.0" orientation="VERTICAL">
+			<styleClass>
+				<String fx:value="basic-slider" />
+				<String fx:value="basic-element" />
+			</styleClass>
+		</Slider>
+		<Slider fx:id="faderOut" max="10.0" orientation="VERTICAL">
+			<styleClass>
+				<String fx:value="basic-slider" />
+				<String fx:value="basic-element" />
+			</styleClass>
+		</Slider>
+	</children>
+	<styleClass>
+		<String fx:value="scene-tool-box" />
+		<String fx:value="basic-container" />
+	</styleClass>
+</fx:root>

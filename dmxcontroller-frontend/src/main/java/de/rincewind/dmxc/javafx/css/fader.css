@@ -1,0 +1,50 @@
+.fader-box {
+	-fx-min-width: 80.0px;
+	-fx-max-width: 80.0px;
+}
+
+.fader-box.channel {
+	-fx-background-color: #555, #faefc8;
+}
+
+.fader-box.submaster {
+	-fx-background-color: #555, #d4ecff;
+}
+
+.fader-box.effect {
+	-fx-background-color: #555, #e4ffe3;
+}
+
+.fader-box .slider {
+	-fx-block-increment: 0.0;
+	-fx-show-tick-marks: true;
+	-fx-show-tick-labels: true;
+	-fx-major-tick-unit: 25.0;
+	-fx-minor-tick-count: 5.0;
+}
+
+.fader-box .button {
+	-fx-min-width: 60.0px;
+	-fx-max-width: 60.0px;
+	
+	-fx-background-color: #be0000, linear-gradient(to bottom, #DDD, #999);
+}
+
+.fader-box .button:armed {
+	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
+}
+
+.fader-box .toggle-button {
+	-fx-min-width: 60.0px;
+	-fx-max-width: 60.0px;
+	
+	-fx-background-color: #be0000, linear-gradient(to bottom, #DDD, #999);
+}
+
+.fader-box .toggle-button:armed {
+	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
+}
+
+.fader-box .toggle-button:selected {
+	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
+}

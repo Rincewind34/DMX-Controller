@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<VBox styleClass="button-container">
+			<children>
+				<Button fx:id="button1" mnemonicParsing="false" text="Value 1">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button2" mnemonicParsing="false" text="Value 2">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button3" mnemonicParsing="false" text="Value 3">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button4" mnemonicParsing="false" text="Value 4">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="button5" mnemonicParsing="false" text="Value 5">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+				<ToggleButton fx:id="buttonSaveMode" mnemonicParsing="false"
+					text="Save Mode">
+					<styleClass>
+						<String fx:value="save-mode-button" />
+						<String fx:value="basic-toggle-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</ToggleButton>
+				<ToggleButton fx:id="buttonPushZero" mnemonicParsing="false"
+					text="Push 0">
+					<styleClass>
+						<String fx:value="push-zero-button" />
+						<String fx:value="basic-toggle-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</ToggleButton>
+			</children>
+		</VBox>
+		<Slider fx:id="fader" orientation="VERTICAL">
+			<styleClass>
+				<String fx:value="basic-slider" />
+				<String fx:value="basic-element" />
+			</styleClass>
+		</Slider>
+	</children>
+	<styleClass>
+		<String fx:value="hard-fader" />
+		<String fx:value="basic-container" />
+	</styleClass>
+</fx:root>

@@ -1,0 +1,67 @@
+.color-faders {
+	-fx-spacing: 10.0px;
+}
+
+.color-faders .fader-box {
+	-fx-min-width: 60.0px;
+	-fx-max-width: 60.0px;
+	-fx-spacing: 20.0px;
+}
+
+.color-faders .fader-box .slider {
+	-fx-block-increment: 0.0;
+	-fx-show-tick-marks: true;
+	-fx-show-tick-labels: true;
+	-fx-major-tick-unit: 25.0;
+	-fx-minor-tick-count: 5.0;
+}
+
+.color-faders .fader-box.red-fader .slider .track {
+	-fx-background-color: #555, #F00;
+}
+
+.color-faders .fader-box.green-fader .slider .track {
+	-fx-background-color: #555, #0F0;
+}
+
+.color-faders .fader-box.blue-fader .slider .track {
+	-fx-background-color: #555, #00F;
+}
+
+.color-faders .fader-box.white-fader .slider .track {
+	-fx-background-color: #555, #FFF;
+}
+
+.color-faders .fader-box .button {
+	-fx-min-width: 60.0px;
+	-fx-max-width: 60.0px;
+	
+	-fx-background-color: #be0000, linear-gradient(to bottom, #DDD, #999);
+}
+
+.color-faders .fader-box .button:armed {
+	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
+}
+
+.color-faders .button-container {
+	-fx-spacing: 10.0px;
+}
+
+.color-faders .button-container .push-zero-button {
+	-fx-min-width: 60.0px;
+	-fx-max-width: 60.0px;
+	
+	-fx-background-color: #be0000, linear-gradient(to bottom, #DDD, #999);
+}
+
+.color-faders .button-container .push-zero-button:armed {
+	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
+}
+
+.color-faders .button-container .push-zero-button:selected {
+	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
+}
+
+.color-faders .button-container .save-mode-button {
+	-fx-font-size: 10.0px;
+}

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+			prefHeight="0.0" prefWidth="0.0" styleClass="button-container">
+			<children>
+				<Button fx:id="buttonColor1" mnemonicParsing="false" text="Color 1">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="buttonColor2" mnemonicParsing="false" text="Color 2">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Button fx:id="buttonColor3" mnemonicParsing="false" text="Color 3">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+				<Region prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS" />
+				<ToggleButton fx:id="buttonSaveMode" mnemonicParsing="false"
+					text="Save Mode">
+					<styleClass>
+						<String fx:value="save-mode-button" />
+						<String fx:value="basic-toggle-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</ToggleButton>
+				<ToggleButton fx:id="buttonPushZero" mnemonicParsing="false"
+					text="Push 0">
+					<styleClass>
+						<String fx:value="push-zero-button" />
+						<String fx:value="basic-toggle-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</ToggleButton>
+			</children>
+			<HBox.margin>
+				<Insets right="10.0" />
+			</HBox.margin>
+		</VBox>
+		<VBox alignment="CENTER" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="60.0">
+			<children>
+				<Slider fx:id="faderRed" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+					<styleClass>
+						<String fx:value="basic-slider" />
+						<String fx:value="basic-element" />
+					</styleClass>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+				</Slider>
+				<Button fx:id="flashRed" mnemonicParsing="false" text="Flash">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+			</children>
+			<styleClass>
+				<String fx:value="red-fader" />
+				<String fx:value="fader-box" />
+			</styleClass>
+		</VBox>
+		<VBox alignment="CENTER" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="60.0">
+			<children>
+				<Slider fx:id="faderGreen" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+					<styleClass>
+						<String fx:value="basic-slider" />
+						<String fx:value="basic-element" />
+					</styleClass>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+				</Slider>
+				<Button fx:id="flashGreen" mnemonicParsing="false" text="Flash">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+			</children>
+			<styleClass>
+				<String fx:value="green-fader" />
+				<String fx:value="fader-box" />
+			</styleClass>
+		</VBox>
+		<VBox alignment="CENTER" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="60.0">
+			<children>
+				<Slider fx:id="faderBlue" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+					<styleClass>
+						<String fx:value="basic-slider" />
+						<String fx:value="basic-element" />
+					</styleClass>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+				</Slider>
+				<Button fx:id="flashBlue" mnemonicParsing="false" text="Flash">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+			</children>
+			<styleClass>
+				<String fx:value="blue-fader" />
+				<String fx:value="fader-box" />
+			</styleClass>
+		</VBox>
+		<VBox alignment="CENTER" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="60.0">
+			<children>
+				<Slider fx:id="faderWhite" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+					<styleClass>
+						<String fx:value="basic-slider" />
+						<String fx:value="basic-element" />
+					</styleClass>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+				</Slider>
+				<Button fx:id="flashWhite" mnemonicParsing="false" text="Flash">
+					<styleClass>
+						<String fx:value="basic-button" />
+						<String fx:value="basic-element" />
+					</styleClass>
+				</Button>
+			</children>
+			<styleClass>
+				<String fx:value="white-fader" />
+				<String fx:value="fader-box" />
+			</styleClass>
+		</VBox>
+	</children>
+	<styleClass>
+		<String fx:value="color-faders" />
+		<String fx:value="basic-container" />
+	</styleClass>
+</fx:root>
