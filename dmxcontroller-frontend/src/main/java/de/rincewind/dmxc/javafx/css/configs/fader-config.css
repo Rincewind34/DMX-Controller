@@ -1,0 +1,8 @@
+.basic-container {
+	-fx-alignment: center;
+	-fx-max-width: 160px;
+}
+
+.basic-container .button {
+	-fx-min-width: 160px;
+}

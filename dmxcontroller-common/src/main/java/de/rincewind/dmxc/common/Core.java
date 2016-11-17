@@ -22,6 +22,7 @@ public abstract class Core implements Listenable {
 	
 	public abstract void shutdown();
 	
+	
 	public abstract boolean isOnline();
 	
 	@Override

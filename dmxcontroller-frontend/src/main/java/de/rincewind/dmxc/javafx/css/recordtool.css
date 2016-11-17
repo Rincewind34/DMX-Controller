@@ -1,0 +1,9 @@
+.tab-pane .tab-header-area .tab-header-background {
+	-fx-background-color: #DDD;
+	-fx-effect: innershadow(one-pass-box, #222, 8.0, -1.0, 3.0, 3.0);
+}
+
+.tab-pane .tab {
+	-fx-background-radius: 0;
+	-fx-effect: dropshadow(one-pass-box, #222, 5.0, 0.1, 2.0, 2.0);
+}

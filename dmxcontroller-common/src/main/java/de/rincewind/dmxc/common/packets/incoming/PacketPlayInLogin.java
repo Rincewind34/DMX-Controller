@@ -7,29 +7,29 @@ import io.netty.buffer.Unpooled;
 public class PacketPlayInLogin extends PacketPlayIn {
 	
 	private String username;
-	private String passwordHash;
+	private String password;
 	
 	public PacketPlayInLogin() {
 		
 	}
 	
-	public PacketPlayInLogin(String username, String passwordHash) {
+	public PacketPlayInLogin(String username, String password) {
 		this.username = username;
-		this.passwordHash = passwordHash;
+		this.password = password;
 	}
 	
 	@Override
 	public ByteBuf encode() {
 		ByteBuf buffer = Unpooled.buffer();
 		ByteUtil.writeString(buffer, this.username);
-		ByteUtil.writeFixedString(buffer, this.passwordHash, 32);
+		ByteUtil.writeString(buffer, this.password);
 		return buffer.copy(0, buffer.writerIndex());
 	}
 
 	@Override
 	public void decode(ByteBuf buffer) {
 		this.username = ByteUtil.readString(buffer);
-		this.passwordHash = ByteUtil.readFixedString(buffer, 32);
+		this.password = ByteUtil.readString(buffer);
 	}
 	
 	public String getUsername() {
@@ -40,12 +40,12 @@ public class PacketPlayInLogin extends PacketPlayIn {
 		this.username = username;
 	}
 	
-	public String getPasswordHash() {
-		return this.passwordHash;
+	public String getPassword() {
+		return this.password;
 	}
 	
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

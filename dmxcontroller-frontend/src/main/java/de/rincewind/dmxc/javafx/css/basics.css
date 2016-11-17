@@ -6,15 +6,43 @@
 	-fx-faint-focus-color: transparent;
 }
 
+.basic-list .list-cell:selected {
+	-fx-background-color: #999;
+	-fx-background-insets: 0.0;
+	-fx-text-fill: #FFF;
+}
+
+.basic-list .list-cell:focused {
+	-fx-background-color: #999;
+	-fx-background-insets: 0.0;
+	-fx-text-fill: #FFF;
+}
+
 .basic-label {
 	-fx-min-height: 30.0px;
 	-fx-max-height: 30.0px;
 		
-	-fx-font-size: 17.0px;	
+	-fx-font-size: 17.0px;
 	-fx-padding: 5.0px;
 }
 
+.basic-text-field {
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+	-fx-font-size: 17.0px;
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #777, #FFF;
+}
 
+.basic-password-field {
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+	-fx-font-size: 17.0px;
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #777, #FFF;
+}
 .basic-button {
 	-fx-min-height: 30.0px;
 	-fx-max-height: 30.0px;

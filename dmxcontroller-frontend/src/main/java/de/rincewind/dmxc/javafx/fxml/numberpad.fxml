@@ -10,9 +10,10 @@
 	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<Label fx:id="display" styleClass="basic-label">
-			<VBox.margin>
-				<Insets />
-			</VBox.margin>
+			<styleClass>
+				<String fx:value="basic-label" />
+				<String fx:value="basic-element" />
+			</styleClass>
 		</Label>
 		<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 			<columnConstraints>
@@ -129,6 +130,9 @@
 					</styleClass>
 				</Button>
 			</children>
+			<styleClass>
+				<String fx:value="grid" />
+			</styleClass>
 		</GridPane>
 		<HBox prefHeight="0.0" prefWidth="0.0">
 			<children>

@@ -3,10 +3,12 @@ package de.rincewind.dmxc.system.network;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import de.rincewind.dmxc.common.Console;
 import de.rincewind.dmxc.common.Debug;
 import de.rincewind.dmxc.common.handlers.HandlerInbound;
 import de.rincewind.dmxc.common.packets.Packet;
 import de.rincewind.dmxc.common.packets.PacketListener;
+import de.rincewind.dmxc.system.Main;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -18,6 +20,12 @@ public class HandlerServerInbound extends HandlerInbound {
 	
 	@Override
 	protected void invoke(PacketListener listener, Method method, Packet packet, Channel channel) {
+		Client client = Server.get().getClient(channel);
+		
+		if (!client.isVerified()) {
+			Console.println("Blocking message by anotherized client!");
+		}
+		
 		try {
 			method.invoke(listener, packet, Server.get().getClient(channel));
 		} catch (IllegalAccessException e) {
@@ -31,12 +39,12 @@ public class HandlerServerInbound extends HandlerInbound {
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		System.out.println("Channel active " + ctx.channel().toString());
+		Main.server().newClient(ctx.channel());
 	}
 	
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		System.out.println("Channel inactive " + ctx.channel().toString());
+		Main.server().cleanUpClient(Main.server().getClient(ctx.channel()));
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package de.rincewind.dmxc.app.commands;
+package de.rincewind.dmxc.system.commands;
 
 import de.rincewind.commandlib.CommandMessages;
 import de.rincewind.commandlib.commandline.CommandLineElement;

@@ -64,7 +64,11 @@ public class ServerCore extends Core {
 			throw new ChannelInactiveException();
 		}
 		
-		this.channel.close();
+		try {
+			this.channel.close().sync();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

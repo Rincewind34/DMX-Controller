@@ -15,5 +15,5 @@ public class HandlerServerInitialize extends HandlerInitialize {
 	protected HandlerInbound newInboundHandler() {
 		return new HandlerServerInbound(this.core);
 	}
-
+	
 }

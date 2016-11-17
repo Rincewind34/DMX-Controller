@@ -6,6 +6,11 @@
 	-fx-alignment: center;
 }
 
+.numpad .grid {
+	-fx-min-width: 110.0px;
+	-fx-max-width: 110.0px;
+}
+
 .numpad .label {
 	-fx-min-width: 110.0px;
 	-fx-max-width: 110.0px;
@@ -30,6 +35,8 @@
 
 .numpad .clear-button-container {
 	-fx-spacing: 10px;
+	-fx-min-width: 110.0px;
+	-fx-max-width: 110.0px;
 }
 
 .numpad .clear-button-container .button {

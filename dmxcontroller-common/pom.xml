@@ -6,6 +6,7 @@
 		<artifactId>dmxcontroller</artifactId>
 		<version>1.0.0-BETA</version>
 	</parent>
+	
 	<artifactId>dmxcontroller-common</artifactId>
 	<version>${project.parent.version}</version>
 </project>

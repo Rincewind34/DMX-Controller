@@ -47,10 +47,14 @@
 	-fx-spacing: 10.0px;
 }
 
+.color-faders .button-container .button {
+	-fx-min-width: 80.0px;
+	-fx-max-width: 80.0px;
+}
+
 .color-faders .button-container .push-zero-button {
-	-fx-min-width: 60.0px;
-	-fx-max-width: 60.0px;
-	
+	-fx-min-width: 80.0px;
+	-fx-max-width: 80.0px;
 	-fx-background-color: #be0000, linear-gradient(to bottom, #DDD, #999);
 }
 
@@ -64,4 +68,6 @@
 
 .color-faders .button-container .save-mode-button {
 	-fx-font-size: 10.0px;
+	-fx-min-width: 80.0px;
+	-fx-max-width: 80.0px;
 }

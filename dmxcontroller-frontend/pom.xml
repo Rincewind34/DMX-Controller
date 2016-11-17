@@ -33,28 +33,6 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-					<artifactSet>
-						<includes>
-							<include>io.netty:netty-all</include>
-							<include>de.rincewind:dmxcontroller-common</include>
-							<include>de.rincewind:commandlib</include>
-							<include>jline:jline</include>
-						</includes>
-					</artifactSet>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 </project>

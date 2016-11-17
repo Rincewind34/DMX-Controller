@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import de.rincewind.dmxc.common.Console;
-import de.rincewind.dmxc.common.packets.incoming.PacketPlayIn;
-import de.rincewind.dmxc.common.packets.incoming.PacketPlayInLogin;
 import de.rincewind.dmxc.system.Main;
-import de.rincewind.dmxc.system.inbound.ListenerLogin;
+import de.rincewind.dmxc.system.network.listeners.ListenerLogin;
+import de.rincewind.dmxc.system.network.listeners.ListenerUpdateChannel;
+import de.rincewind.dmxc.system.network.listeners.ListenerUpdateSubmaster;
 import io.netty.channel.Channel;
 
 public class Server {
@@ -19,9 +19,6 @@ public class Server {
 	
 	private int port;
 	
-	private String username;
-	private String password;
-	
 	private ServerCore nettyCore;
 	private Thread thread;
 	
@@ -31,8 +28,6 @@ public class Server {
 		this.setupThread();
 		
 		this.port = 24578;
-		this.username = "admin";
-		this.password = "";
 		this.clients = new ArrayList<>();
 	}
 	
@@ -42,30 +37,6 @@ public class Server {
 		}
 		
 		this.port = port;
-	}
-	
-	public void setUsername(String username) {
-		if (this.isConnected()) {
-			throw new RuntimeException("The client is already connected!");
-		}
-		
-		this.username = username;
-	}
-	
-	public void setPassword(String password) {
-		if (this.isConnected()) {
-			throw new RuntimeException("The client is already connected!");
-		}
-		
-		this.password = password;
-	}
-	
-	public void sendPacket(PacketPlayIn packet) {
-		if (!this.isConnected()) {
-			throw new RuntimeException("The client is not connected!");
-		}
-		
-		this.nettyCore.getChannel().writeAndFlush(packet);
 	}
 	
 	public void connect() {
@@ -90,14 +61,14 @@ public class Server {
 		}
 		
 		this.thread.start();
-		Console.println("Sending login data");
-		this.sendPacket(new PacketPlayInLogin(this.username, this.password));
 	}
 	
 	public void disconnect() {
 		if (!this.isConnected()) {
 			throw new RuntimeException("The client is not connected!");
 		}
+		
+		Console.println("Terminating client connections (currently " + this.clients.size() + ")");
 		
 		while (this.clients.size() != 0) {
 			this.clients.get(0).disconnect();
@@ -116,13 +87,27 @@ public class Server {
 		this.clients.add(new Client(channel));
 	}
 	
-	public void diconnectClient(Client client) {
+	public synchronized void diconnectClient(Client client) {
+		if (!this.clients.contains(client)) {
+			throw new RuntimeException("Unknown client!");
+		}
+		
 		client.getChannel().close();
+	}
+	
+	public void cleanUpClient(Client client) {
+		Console.println("Disconnecting client " + (client.isVerified() ? client.getVerification().getUsername() : "unverified"));
+		Main.environment().cleanup(client);
+		client.interruptElapseThread();
 		this.clients.remove(client);
 	}
 	
 	public boolean isConnected() {
 		return this.nettyCore != null;
+	}
+	
+	public Client getFirst() {
+		return this.clients.get(0);
 	}
 	
 	public Client getClient(Channel channel) {
@@ -159,6 +144,8 @@ public class Server {
 	
 	private void addListeners() {
 		this.nettyCore.addListener(new ListenerLogin());
+		this.nettyCore.addListener(new ListenerUpdateChannel());
+		this.nettyCore.addListener(new ListenerUpdateSubmaster());
 	}
 	
 }

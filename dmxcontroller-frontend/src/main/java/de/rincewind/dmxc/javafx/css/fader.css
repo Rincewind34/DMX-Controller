@@ -3,18 +3,6 @@
 	-fx-max-width: 80.0px;
 }
 
-.fader-box.channel {
-	-fx-background-color: #555, #faefc8;
-}
-
-.fader-box.submaster {
-	-fx-background-color: #555, #d4ecff;
-}
-
-.fader-box.effect {
-	-fx-background-color: #555, #e4ffe3;
-}
-
 .fader-box .slider {
 	-fx-block-increment: 0.0;
 	-fx-show-tick-marks: true;

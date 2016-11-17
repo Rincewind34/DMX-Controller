@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.rincewind.dmxc.common.packets.incoming.PacketPlayInLogin;
+import de.rincewind.dmxc.common.packets.incoming.PacketPlayInUpdateChannel;
+import de.rincewind.dmxc.common.packets.incoming.PacketPlayInUpdateSubmaster;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutAccess;
+import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
 
 public class PacketRegistry {
 	
@@ -13,7 +16,10 @@ public class PacketRegistry {
 	static {
 		PacketRegistry.packets = new HashMap<>();
 		PacketRegistry.packets.put(1, PacketPlayOutAccess.class);
-		PacketRegistry.packets.put(2, PacketPlayInLogin.class);
+		PacketRegistry.packets.put(2, PacketPlayOutSubmaster.class);
+		PacketRegistry.packets.put(3, PacketPlayInLogin.class);
+		PacketRegistry.packets.put(4, PacketPlayInUpdateChannel.class);
+		PacketRegistry.packets.put(5, PacketPlayInUpdateSubmaster.class);
 	}
 	
 	public static <T extends Packet> T newPacket(Class<T> packetClass) {

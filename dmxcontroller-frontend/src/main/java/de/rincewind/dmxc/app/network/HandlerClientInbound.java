@@ -3,6 +3,8 @@ package de.rincewind.dmxc.app.network;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import de.rincewind.dmxc.app.Main;
+import de.rincewind.dmxc.app.api.Submaster;
 import de.rincewind.dmxc.common.Console;
 import de.rincewind.dmxc.common.Debug;
 import de.rincewind.dmxc.common.handlers.HandlerInbound;
@@ -31,13 +33,9 @@ public class HandlerClientInbound extends HandlerInbound {
 	}
 	
 	@Override
-	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		Console.println("Channel active " + ctx.channel().toString());
-	}
-	
-	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		Console.println("Channel inactive " + ctx.channel().toString());
+		Submaster.deleteAll();
+		Main.hideMainWindow();
 	}
 	
 	@Override

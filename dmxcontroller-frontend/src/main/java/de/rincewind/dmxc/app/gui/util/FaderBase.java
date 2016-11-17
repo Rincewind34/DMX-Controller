@@ -1,12 +1,13 @@
-package de.rincewind.dmxc.app.api;
+package de.rincewind.dmxc.app.gui.util;
 
+import de.rincewind.dmxc.app.api.Fadeable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 
 public class FaderBase {
 	
-	private Runnable listener;
+	private Fadeable target;
 	
 	private Slider fader;
 	private Button flashButton;
@@ -42,8 +43,8 @@ public class FaderBase {
 		});
 	}
 	
-	public void setListener(Runnable listener) {
-		this.listener = listener;
+	public void setTarget(Fadeable target) {
+		this.target = target;
 	}
 	
 	public void setPushZero(boolean value) {
@@ -56,6 +57,11 @@ public class FaderBase {
 	
 	public void setFaderValue(short value) {
 		this.fader.setValue((value / 255.0D) * 100.0D);
+	}
+	
+	public void updateSlider() {
+		this.fader.setShowTickMarks(false);
+		this.fader.setShowTickMarks(true);
 	}
 	
 	public boolean isFlashed() {
@@ -86,9 +92,13 @@ public class FaderBase {
 		}
 	}
 	
+	public Fadeable getTarget() {
+		return this.target;
+	}
+	
 	private void fireChange() {
-		if (this.listener != null) {
-			this.listener.run();
+		if (this.target != null) {
+			this.target.update(this.getValue());
 		}
 	}
 	
