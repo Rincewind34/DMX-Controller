@@ -22,6 +22,11 @@ public class SceneTool extends TemplateComponent {
 	}
 	
 	@Override
+	public String getType() {
+		return "scenetool";
+	}
+	
+	@Override
 	protected JsonElement serializeSimplified() {
 		return JsonNull.INSTANCE;
 	}

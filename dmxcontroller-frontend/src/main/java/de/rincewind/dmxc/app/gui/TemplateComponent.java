@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import de.rincewind.dmxc.app.gui.util.Color;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
@@ -18,6 +19,35 @@ import javafx.scene.layout.VBox;
 public abstract class TemplateComponent extends VBox {
 	
 	public static final Color BORDER_COLOR = new Color(0x55, 0x55, 0x55);
+	
+	public static TemplateComponent deserialize(JsonObject object) {
+		String type = object.get("type").getAsString();
+		JsonElement data = object.get("data");
+		TemplateComponent component;
+		
+		if (type.equals("fader")) {
+			component = new Fader(data);
+		} else if (type.equals("hardfader")) {
+			component = new HardFader(data);
+		} else if (type.equals("masterfader")) {
+			component = new MasterFader();
+		} else if (type.equals("numberpad")) {
+			component = new NumberPad(data);
+		} else if (type.equals("rgbfader")) {
+			component = new RGBFader(data);
+		} else if (type.equals("rgbwfader")) {
+			component = new RGBWFader(data);
+		} else if (type.equals("scenetool")) {
+			component = new SceneTool(); // TODO
+		} else if (type.equals("submasterfader")) {
+			component = new SubmasterFader(data);
+		} else {
+			return null;
+		}
+		
+		component.setCaption(object.get("caption").getAsString());
+		return component;
+	}
 	
 	protected static void setBackgroundColor(Pane pane, Color color) {
 		pane.setStyle("-fx-background-color: " + TemplateComponent.BORDER_COLOR.toCSS() + ", " + color.toCSS() + ";");
@@ -43,6 +73,8 @@ public abstract class TemplateComponent extends VBox {
 		this.setPrefHeight(Region.USE_COMPUTED_SIZE);
 		this.setMaxHeight(Double.MAX_VALUE);
 	}
+	
+	public abstract String getType();
 	
 	public void update() {
 		
@@ -82,6 +114,14 @@ public abstract class TemplateComponent extends VBox {
 	
 	public Template getRoot() {
 		return this.root;
+	}
+	
+	public JsonObject serialize() {
+		JsonObject object = new JsonObject();
+		object.addProperty("type", this.getType());
+		object.addProperty("caption", this.labelCaption.getText());
+		object.add("data", this.serializeSimplified());
+		return object;
 	}
 	
 	protected abstract JsonElement serializeSimplified();

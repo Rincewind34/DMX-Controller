@@ -32,6 +32,11 @@ public class HardFader extends TemplateComponent {
 		this(Fadeable.deserialize(element.getAsJsonObject()));
 	}
 	
+	@Override
+	public String getType() {
+		return "hardfader";
+	}
+	
 	public FaderBase faderBase() {
 		return this.toolController.base;
 	}

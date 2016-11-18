@@ -64,6 +64,12 @@ public class FaderBase {
 		this.fader.setShowTickMarks(true);
 	}
 	
+	public void fireChange() {
+		if (this.target != null) {
+			this.target.update(this.getValue());
+		}
+	}
+	
 	public boolean isFlashed() {
 		return this.flashButton == null ? false : this.flashButton.isArmed();
 	}
@@ -94,12 +100,6 @@ public class FaderBase {
 	
 	public Fadeable getTarget() {
 		return this.target;
-	}
-	
-	private void fireChange() {
-		if (this.target != null) {
-			this.target.update(this.getValue());
-		}
 	}
 	
 }

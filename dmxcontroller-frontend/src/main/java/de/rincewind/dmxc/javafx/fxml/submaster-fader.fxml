@@ -10,30 +10,30 @@
 	<children>
 		<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" styleClass="button-container">
 			<children>
-				<Button fx:id="buttonColor1" mnemonicParsing="false">
-					<styleClass>
-						<String fx:value="basic-button" />
-						<String fx:value="basic-element" />
-					</styleClass>
-				</Button>
-				<Button fx:id="buttonColor2" mnemonicParsing="false">
-					<styleClass>
-						<String fx:value="basic-button" />
-						<String fx:value="basic-element" />
-					</styleClass>
-				</Button>
-				<Button fx:id="buttonColor3" mnemonicParsing="false">
-					<styleClass>
-						<String fx:value="basic-button" />
-						<String fx:value="basic-element" />
-					</styleClass>
-				</Button>
-            <Button fx:id="buttonColor21" mnemonicParsing="false">
+            <ToggleButton fx:id="buttonSub1" mnemonicParsing="false">
                <styleClass>
-                  <String fx:value="basic-button" />
                   <String fx:value="basic-element" />
+                  <String fx:value="basic-toggle-button" />
                </styleClass>
-            </Button>
+            </ToggleButton>
+            <ToggleButton fx:id="buttonSub2" mnemonicParsing="false">
+               <styleClass>
+                  <String fx:value="basic-element" />
+                  <String fx:value="basic-toggle-button" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton fx:id="buttonSub3" mnemonicParsing="false">
+               <styleClass>
+                  <String fx:value="basic-element" />
+                  <String fx:value="basic-toggle-button" />
+               </styleClass>
+            </ToggleButton>
+            <ToggleButton fx:id="buttonSub4" mnemonicParsing="false">
+               <styleClass>
+                  <String fx:value="basic-element" />
+                  <String fx:value="basic-toggle-button" />
+               </styleClass>
+            </ToggleButton>
 				<Region VBox.vgrow="ALWAYS" />
 				<ToggleButton fx:id="buttonPushZero" mnemonicParsing="false" text="Push 0">
 					<styleClass>
@@ -49,7 +49,7 @@
 		</VBox>
 		<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="60.0" styleClass="fader-box">
 			<children>
-				<Slider fx:id="faderBlue" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+				<Slider fx:id="fader" orientation="VERTICAL" VBox.vgrow="ALWAYS">
 					<styleClass>
 						<String fx:value="basic-slider" />
 						<String fx:value="basic-element" />
@@ -58,25 +58,25 @@
 						<Insets />
 					</VBox.margin>
 				</Slider>
-				<Button fx:id="flashBlue" mnemonicParsing="false" text="Flash">
+				<Button fx:id="buttonFlash" mnemonicParsing="false" text="Flash">
 					<styleClass>
 						<String fx:value="basic-button" />
 						<String fx:value="basic-element" />
 					</styleClass>
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin>
+					<VBox.margin>
+						<Insets top="15.0" />
+					</VBox.margin>
 				</Button>
 			</children>
 		</VBox>
 	</children>
-   <stylesheets>
-      <URL value="@../css/basics.css" />
-      <URL value="@../css/fader.css" />
-      <URL value="@../css/submasterfader.css" />
-   </stylesheets>
-   <styleClass>
-      <String fx:value="basic-container" />
-      <String fx:value="submaster-fader" />
-   </styleClass>
+	<stylesheets>
+		<URL value="@../css/basics.css" />
+		<URL value="@../css/fader.css" />
+		<URL value="@../css/submasterfader.css" />
+	</stylesheets>
+	<styleClass>
+		<String fx:value="basic-container" />
+		<String fx:value="submaster-fader" />
+	</styleClass>
 </fx:root>

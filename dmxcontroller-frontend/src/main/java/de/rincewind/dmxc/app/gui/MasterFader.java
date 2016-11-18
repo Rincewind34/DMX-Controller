@@ -27,6 +27,11 @@ public class MasterFader extends TemplateComponent {
 	}
 	
 	@Override
+	public String getType() {
+		return "masterfader";
+	}
+	
+	@Override
 	public void update() {
 		this.toolPane.updateSlider();
 	}

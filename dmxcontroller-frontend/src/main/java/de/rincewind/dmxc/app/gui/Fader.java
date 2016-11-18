@@ -53,6 +53,11 @@ public class Fader extends TemplateComponent {
 	}
 	
 	@Override
+	public String getType() {
+		return "fader";
+	}
+	
+	@Override
 	public void update() {
 		if (this.faderBase().getTarget() instanceof Channel || this.faderBase().getTarget() instanceof ChannelSelection) {
 			TemplateComponent.setBackgroundColor(this.toolPane, Fader.COLOR_CHANNEL);

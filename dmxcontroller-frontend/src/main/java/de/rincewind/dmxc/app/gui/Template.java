@@ -1,5 +1,8 @@
 package de.rincewind.dmxc.app.gui;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import de.rincewind.dmxc.app.api.Fadeable;
 import de.rincewind.dmxc.app.api.Submaster;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
@@ -124,7 +127,19 @@ public class Template extends VBox {
 		this.root.getChildren().remove(this.selectorTabPane);
 		this.root.getChildren().remove(this.dragScrollPane);
 	}
-
+	
+	public Template(JsonObject object) {
+		this();
+		
+		JsonArray array = object.get("template").getAsJsonArray();
+		
+		for (int i = 0; i < array.size(); i++) {
+			this.addComponent(TemplateComponent.deserialize(array.get(i).getAsJsonObject()));
+		}
+		
+		this.setContent(TemplateContent.valueOf(object.get("content").getAsString()));
+	}
+	
 	public void setContent(TemplateContent displayContent) {
 		this.displayContent = displayContent;
 		
@@ -160,6 +175,21 @@ public class Template extends VBox {
 				return this.numberPad.getSelection();
 			}
 		}
+	}
+	
+	public JsonObject serialize() {
+		JsonObject object = new JsonObject();
+		JsonArray array = new JsonArray();
+		
+		for (Node node : this.getChildren()) {
+			if (node instanceof TemplateComponent) {
+				array.add(((TemplateComponent) node).serialize());
+			}
+		}
+		
+		object.addProperty("content", this.displayContent.name());
+		object.add("template", array);
+		return object;
 	}
 	
 	private void fillSubmasters() {

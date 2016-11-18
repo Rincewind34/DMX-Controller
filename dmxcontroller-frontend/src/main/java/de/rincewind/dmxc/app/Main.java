@@ -1,14 +1,18 @@
 package de.rincewind.dmxc.app;
 
+import java.io.File;
 import java.util.Optional;
 
 import de.rincewind.dmxc.app.api.Channel;
 import de.rincewind.dmxc.app.gui.Fader;
+import de.rincewind.dmxc.app.gui.SubmasterFader;
 import de.rincewind.dmxc.app.gui.Template;
 import de.rincewind.dmxc.app.gui.dialog.Credential;
 import de.rincewind.dmxc.app.gui.dialog.DialogCredetial;
 import de.rincewind.dmxc.app.network.Client;
 import de.rincewind.dmxc.common.Console;
+import de.rincewind.dmxc.common.util.FileUtil;
+import de.rincewind.dmxc.common.util.JsonUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -25,9 +29,16 @@ public class Main extends Application {
 	private static boolean inShutdown;
 	private static boolean inDisconnect;
 	
+	private static Template template;
+	
+	private static File templateFile;
+	
 	public static void main(String[] args) {
 		Main.inShutdown = false;
 		Main.client = new Client();
+		
+		Main.templateFile = new File("template.json");
+		FileUtil.setupFile(Main.templateFile);
 		
 		Application.launch(args);
 	}
@@ -129,6 +140,10 @@ public class Main extends Application {
 		Main.inShutdown = true;
 		Console.println("Shuting down client");
 		
+		if (Main.templateFile.exists()) {
+			JsonUtil.toJson(Main.templateFile, Main.template.serialize());
+		}
+		
 		Platform.exit();
 		
 		if (Main.client.isConnected()) {
@@ -176,15 +191,17 @@ public class Main extends Application {
 	
 	public static void showMainWindow() {
 		Platform.runLater(() -> {
-			Template template = new Template();
+			Main.template = new Template();
 			
 			for (int i = 1; i <= 10; i++) {
 				Fader fader = new Fader(Channel.fromAddress((short) i));
 				fader.setCaption("Channel " + i);
-				template.addComponent(fader);
+				Main.template.addComponent(fader);
 			}
 			
-			Main.stage.setScene(new Scene(template));
+			Main.template.addComponent(new SubmasterFader());
+			
+			Main.stage.setScene(new Scene(Main.template));
 			Main.stage.show();
 		});
 	}

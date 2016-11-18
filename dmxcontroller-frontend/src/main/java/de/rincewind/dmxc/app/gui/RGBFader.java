@@ -50,6 +50,11 @@ public class RGBFader extends TemplateComponent {
 		this.blueBase().setTarget(Fadeable.deserialize(object.get("bluetarget").getAsJsonObject()));
 	}
 	
+	@Override
+	public String getType() {
+		return "rgbfader";
+	}
+	
 	public void setColorName(int index, String name) {
 		if (index == 0) {
 			this.toolPane.buttonColor1.setText(name);

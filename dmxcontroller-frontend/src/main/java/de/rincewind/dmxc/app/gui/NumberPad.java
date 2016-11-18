@@ -39,6 +39,11 @@ public class NumberPad extends TemplateComponent {
 		this(Fadeable.deserialize(element.getAsJsonObject()));
 	}
 	
+	@Override
+	public String getType() {
+		return "numberpad";
+	}
+	
 	public ChannelSelection getSelectedChannels() {
 		return this.toolPane.interpreter.getSelectedChannels();
 	}
