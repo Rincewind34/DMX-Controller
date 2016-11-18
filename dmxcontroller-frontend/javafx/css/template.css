@@ -1,0 +1,80 @@
+.template .tab-pane {
+	-fx-background-color: #DDD;
+	-fx-border-color: #DDD;
+	-fx-background-insets: 0.0;
+	-fx-min-width: 200.0px;
+	-fx-max-width: 200.0px;
+}
+
+.template .tab-pane .tab-header-background {
+	-fx-background-insets: 0.0;
+	-fx-background-color: #BBB;
+}
+
+.template .tab-pane .tab-header-area .headers-region .tab {
+	-fx-background-radius: 0.0;
+	-fx-border-insets: 0.0;
+	-fx-background-color: #CCC;
+}
+
+.template .tab-pane:focused .tab-header-area .headers-region .tab:selected {
+	-fx-background-color: #EEE;
+}
+
+.template .tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator {
+	-fx-border-radius: 0.0;
+	-fx-border-insets: 0.0;
+	-fx-border-width: 0.0;
+	-fx-background-insets: 0.0;
+	-fx-focus-color: -fx-outer-border;
+	-fx-faint-focus-color: transparent;
+}
+
+.template .tab-content {
+	-fx-padding: 20.0px;
+	-fx-min-width: 200.0px;
+	-fx-max-width: 200.0px;
+}
+
+.template .scroll-pane {
+	-fx-background-color: #BBB;
+	-fx-background-insets: 0.0;
+}
+
+.template .scroll-pane .content  {
+	-fx-alignment: center;
+	-fx-padding: 20.0px;
+	-fx-spacing: 20.0px;
+	-fx-background-insets: 0.0;
+}
+
+.template .scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.template .region {
+	-fx-min-width: 1px;
+	-fx-max-width: 1px;
+	-fx-background-color: #333;
+	-fx-background-insets: 0.0;
+}
+
+.template .pane-selector {
+	-fx-min-width: 200.0px;
+	-fx-max-width: 200.0px;
+	-fx-padding: 20.0px;
+	-fx-spacing: 10.0px;
+	-fx-background-color: #DDD;
+	-fx-background-insets: 0.0;
+}
+
+.template .buttonbox {
+	-fx-padding: 10.0px;
+	-fx-spacing: 5px;
+	-fx-background-color: #333;
+}
+
+.template .buttonbox .button {
+	-fx-min-width: 120.0px;
+	-fx-max-width: 120.0px;
+}

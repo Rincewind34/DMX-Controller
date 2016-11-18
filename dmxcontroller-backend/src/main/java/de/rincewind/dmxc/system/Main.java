@@ -1,17 +1,9 @@
 package de.rincewind.dmxc.system;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 
 import de.rincewind.dmxc.common.Console;
+import de.rincewind.dmxc.common.util.FileUtil;
 import de.rincewind.dmxc.system.commands.CommandAccounts;
 import de.rincewind.dmxc.system.commands.CommandDMXValues;
 import de.rincewind.dmxc.system.commands.CommandStop;
@@ -21,51 +13,6 @@ import de.rincewind.dmxc.system.environment.MergingMethod;
 import de.rincewind.dmxc.system.network.Server;
 
 public class Main {
-	
-	private static Gson gson;
-	
-	static {
-		Main.gson = new GsonBuilder().setPrettyPrinting().create();
-	}
-	
-	public static <T> T fromJson(File file, Class<T> jsonClass) {
-		try {
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(fileReader);
-			T object = Main.gson.fromJson(reader, jsonClass);
-			
-			fileReader.close();
-			reader.close();
-			return object;
-		} catch (FileNotFoundException exception) {
-			exception.printStackTrace();
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-		
-		return null;
-	}
-	
-	public static void toJson(File file, JsonElement json) {
-		FileWriter writer = null;
-		
-		try {
-			writer = new FileWriter(file);
-			writer.write(Main.gson.toJson(json));
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-		
-		if (writer != null) {
-			try {
-				writer.flush();
-				writer.close();
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
-		}
-	}
-	
 	
 	private static Server server;
 	private static AccountManagement management;
@@ -78,14 +25,14 @@ public class Main {
 		System.out.println("Preparing...");
 		
 		Main.submastersFile = new File("submasters.json");
-		Main.setupFile(Main.submastersFile);
+		FileUtil.setupFile(Main.submastersFile);
 		
 		Main.environment = new DMXEnvironment(MergingMethod.HIGHST_VALUE);
 		Main.environment.loadSubmasters(Main.submastersFile);
 		
 		Main.management = new AccountManagement();
 		Main.accountsFile = new File("accounts.json");
-		Main.setupFile(Main.accountsFile);
+		FileUtil.setupFile(Main.accountsFile);
 		
 		
 		if (Main.accountsFile.exists()) {
@@ -140,17 +87,4 @@ public class Main {
 		}
 	}
 	
-	private static void setupFile(File file) {
-		if (file.isDirectory()) {
-			throw new RuntimeException("The file 'accounts.json' could not be created: Already a directory!");
-		}
-		
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException exception) {
-				exception.printStackTrace();
-			}
-		}
-	}
 }

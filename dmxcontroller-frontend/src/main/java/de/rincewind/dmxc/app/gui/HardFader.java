@@ -1,5 +1,8 @@
 package de.rincewind.dmxc.app.gui;
 
+import com.google.gson.JsonElement;
+
+import de.rincewind.dmxc.app.api.Fadeable;
 import de.rincewind.dmxc.app.gui.util.FaderBase;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
 import javafx.fxml.FXML;
@@ -14,14 +17,28 @@ public class HardFader extends TemplateComponent {
 	private ToolController toolController;
 	
 	public HardFader() {
-		this.toolController = new ToolController();
-		
-		FileLoader.loadFXML(this.toolController, "hard-fader.fxml", "basics.css", "hardfader.css");
-		this.toolController.init();
+		this((Fadeable) null);
 	}
 	
-	public FaderBase base() {
+	public HardFader(Fadeable target) {
+		this.toolController = new ToolController();
+		
+		FileLoader.loadFXML(this.toolController, "hard-fader.fxml");
+		this.toolController.init();
+		this.faderBase().setTarget(target);
+	}
+	
+	protected HardFader(JsonElement element) {
+		this(Fadeable.deserialize(element.getAsJsonObject()));
+	}
+	
+	public FaderBase faderBase() {
 		return this.toolController.base;
+	}
+	
+	@Override
+	protected JsonElement serializeSimplified() {
+		return this.faderBase().getTarget().serialize();
 	}
 	
 	@Override

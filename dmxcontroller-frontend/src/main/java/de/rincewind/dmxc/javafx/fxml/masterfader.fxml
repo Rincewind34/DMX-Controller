@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<Slider fx:id="fader" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+			<styleClass>
+				<String fx:value="basic-slider" />
+				<String fx:value="basic-element" />
+			</styleClass>
+		</Slider>
+		<ToggleButton fx:id="buttonBlack" mnemonicParsing="false" text="Black">
+			<VBox.margin>
+				<Insets top="15.0" />
+			</VBox.margin>
+			<styleClass>
+				<String fx:value="basic-toggle-button" />
+				<String fx:value="basic-element" />
+			</styleClass>
+		</ToggleButton>
+      <ToggleButton fx:id="buttonActive" mnemonicParsing="false" text="Active">
+         <styleClass>
+            <String fx:value="basic-toggle-button" />
+            <String fx:value="basic-element" />
+         </styleClass>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </ToggleButton>
+	</children>
+	<styleClass>
+		<String fx:value="fader-box" />
+		<String fx:value="basic-container" />
+	</styleClass>
+   <stylesheets>
+      <URL value="@../css/basics.css" />
+      <URL value="@../css/fader.css" />
+   </stylesheets>
+</fx:root>

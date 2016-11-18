@@ -1,0 +1,142 @@
+
+/* Nodes */
+
+.basic-element {
+	-fx-font-size: 15.0px;
+	-fx-focus-color: -fx-outer-border;
+	-fx-faint-focus-color: transparent;
+}
+
+.basic-combobox {
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #BBB, linear-gradient(to bottom, #DDD, #999);
+	-fx-effect: dropshadow(one-pass-box, #222, 5.0, 0.1, 2.0, 2.0);
+}
+
+.basic-combobox .combo-box-popup .list-view .list-cell:selected, .basic-combobox .combo-box-popup .list-view .list-cell:focused {
+	-fx-background-color: #999;
+	-fx-background-insets: 0.0;
+	-fx-text-fill: #FFF;
+}
+
+.basic-combobox .combo-box-popup .list-view .list-cell:hover {
+	-fx-background-color: #CCC;
+	-fx-background-insets: 0.0;
+	-fx-text-fill: #FFF;
+}
+
+.basic-list .list-cell:selected, .basic-list .list-cell:focused {
+	-fx-background-color: #999;
+	-fx-background-insets: 0.0;
+	-fx-text-fill: #FFF;
+}
+
+.basic-label {
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+		
+	-fx-font-size: 17.0px;
+	-fx-padding: 5.0px;
+}
+
+.basic-text-field {
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+	-fx-font-size: 17.0px;
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #777, #FFF;
+}
+
+.basic-password-field {
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+	-fx-font-size: 17.0px;
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #777, #FFF;
+}
+.basic-button {
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+	
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #BBB, linear-gradient(to bottom, #DDD, #999);
+	-fx-effect: dropshadow(one-pass-box, #222, 5.0, 0.1, 2.0, 2.0);
+		
+	-fx-padding: 2.0px;
+}
+
+.basic-button:armed {
+	-fx-effect: innershadow(one-pass-box, #222, 8.0, -1.0, 3.0, 3.0);
+}
+
+.basic-button:disabled {
+	-fx-effect: null;
+}
+
+.basic-toggle-button {
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+	
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #BBB, linear-gradient(to bottom, #DDD, #999);
+	-fx-effect: dropshadow(one-pass-box, #222, 5.0, 0.1, 2.0, 2.0);
+	
+	-fx-padding: 2.0px;
+}
+
+.basic-toggle-button:armed {
+	-fx-effect: innershadow(one-pass-box, #222, 8.0, -1.0, 3.0, 3.0);
+}
+
+.basic-toggle-button:selected {
+	-fx-effect: innershadow(one-pass-box, #222, 8.0, -1.0, 3.0, 3.0);
+}
+
+.basic-toggle-button:disabled {
+	-fx-effect: null;
+}
+
+.basic-slider .track {
+	-fx-background-radius: 0.0;
+	-fx-effect: innershadow(one-pass-box, #222, 5.0, 0.0, 3.0, 3.0);
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #555, #999;
+	-fx-border-width: 1.0px;
+}
+
+.basic-slider .axis .axis-tick-mark, .basic-slider .axis .axis-minor-tick-mark {
+	-fx-fill: null;
+	-fx-stroke: #777;
+}
+
+.basic-slider .thumb {
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #777, #DDD;
+	-fx-padding: 20.0px 10.0px 20.0px 10.0px;
+	-fx-effect: dropshadow(one-pass-box, #222, 8.0, 0.05, 3.0, 3.0);
+}
+
+/* Container */
+
+.basic-container {
+	-fx-background-insets: 0.0, 3.0;
+	-fx-background-color: #555, #FFF;
+	-fx-padding: 10.0px;
+	/* -fx-min-height: 300.0px; */
+}
+
+.scene-box {
+	-fx-padding: 20.0px;
+	-fx-background-color: #DDD;
+}
+
+.scene-box .space {
+	-fx-min-width: 20.0px;
+	-fx-max-width: 50.0px;
+}

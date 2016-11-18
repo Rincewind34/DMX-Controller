@@ -23,7 +23,7 @@ public class DialogCredetial extends Dialog<Credential> {
 		Node btnConnect = this.getDialogPane().lookupButton(connectType);
 
 		DialogContent content = this.new DialogContent(btnConnect, credential);
-		FileLoader.loadFXML(content, "dialog/credential.fxml", "basics.css", "dialog/dialogbasics.css", "dialog/credential.css");
+		FileLoader.loadFXML(content, "dialog/credential.fxml");
 		content.init();
 		this.getDialogPane().setContent(content);
 

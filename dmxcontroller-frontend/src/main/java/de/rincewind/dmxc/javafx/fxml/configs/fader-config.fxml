@@ -5,17 +5,28 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="javafx.scene.layout.VBox" styleClass="basic-container" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1">
+<fx:root styleClass="basic-container" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<TextField promptText="Caption" fx:id="textCaption">
+		<TextField fx:id="textCaption" promptText="Caption">
 			<styleClass>
 				<String fx:value="basic-element" />
 				<String fx:value="basic-text-field" />
 			</styleClass>
 		</TextField>
 		<Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-		<Button mnemonicParsing="false" text="Set Selection" fx:id="buttonSetSelection">
+      <Label text="Current selection:">
+         <styleClass>
+            <String fx:value="basic-element" />
+            <String fx:value="basic-label" />
+         </styleClass>
+      </Label>
+      <Label fx:id="labelSelection">
+         <styleClass>
+            <String fx:value="basic-element" />
+            <String fx:value="basic-label" />
+         </styleClass>
+      </Label>
+		<Button fx:id="buttonSetSelection" mnemonicParsing="false" text="Set Selection">
 			<styleClass>
 				<String fx:value="basic-element" />
 				<String fx:value="basic-button" />

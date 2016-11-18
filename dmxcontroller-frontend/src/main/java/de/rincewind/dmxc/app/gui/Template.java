@@ -157,7 +157,7 @@ public class Template extends VBox {
 			if (((Pane) selected.getContent()).getChildren().get(0) instanceof ListView<?>) {
 				return this.listSubmasters.getSelectionModel().getSelectedItem();
 			} else {
-				return this.numberPad.getSelectedChannels();
+				return this.numberPad.getSelection();
 			}
 		}
 	}

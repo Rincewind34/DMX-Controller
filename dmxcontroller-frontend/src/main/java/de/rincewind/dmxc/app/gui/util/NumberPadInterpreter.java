@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.rincewind.dmxc.app.api.Channel;
 import de.rincewind.dmxc.app.api.ChannelSelection;
+import de.rincewind.dmxc.app.api.Fadeable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -39,6 +40,8 @@ public class NumberPadInterpreter {
 	private Button buttonBack;
 	
 	private Label display;
+	
+	private Runnable action;
 	
 	public NumberPadInterpreter(Button button0, Button button1, Button button2, Button button3, Button button4, Button button5, Button button6, Button button7,
 			Button button8, Button button9, Button buttonPlus, Button buttonThru, Button buttonClear, Button buttonBack, Label display) {
@@ -83,6 +86,20 @@ public class NumberPadInterpreter {
 		});
 		
 		this.updateButtons();
+	}
+	
+	public void setAction(Runnable action) {
+		this.action = action;
+	}
+	
+	public Fadeable getSelection() {
+		ChannelSelection selection = this.getSelectedChannels();
+		
+		if (selection.size() == 1) {
+			return selection.toChannel();
+		} else {
+			return selection;
+		}
 	}
 	
 	public ChannelSelection getSelectedChannels() {
@@ -159,6 +176,8 @@ public class NumberPadInterpreter {
 		} else {
 			this.setNumbersDisabled(false);
 		}
+		
+		this.fireAction();
 	}
 	
 	private void setupButton(Button button, String text) {
@@ -183,6 +202,12 @@ public class NumberPadInterpreter {
 		this.button7.setDisable(value);
 		this.button8.setDisable(value);
 		this.button9.setDisable(value);
+	}
+	
+	private void fireAction() {
+		if (this.action != null) {
+			this.action.run();
+		}
 	}
 	
 	private int getLastNumber() {

@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import de.rincewind.dmxc.common.Console;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster.Action;
+import de.rincewind.dmxc.common.util.JsonUtil;
 import de.rincewind.dmxc.system.Main;
 import de.rincewind.dmxc.system.network.Client;
 
@@ -23,12 +24,15 @@ public class DMXEnvironment {
 	private List<Submaster> submasters;
 
 	private Map<Short, DMXData> addresses;
-
+	
+	private DMXData master;
+	
 	public DMXEnvironment(MergingMethod method) {
+		this.method = method;
+		this.master = new DMXData();
 		this.addresses = new HashMap<>();
 		this.submasters = new ArrayList<>();
-		this.method = method;
-
+		
 		for (short i = 1; i <= 512; i++) {
 			this.addresses.put(i, new DMXData());
 		}
@@ -45,11 +49,21 @@ public class DMXEnvironment {
 		
 		this.addresses.get(dmxAddress).update(client, dmxValue);
 	}
-
+	
+	public void updateMaster(Client client, Short value) {
+		this.master.update(client, value);
+	}
+	
 	public void cleanup(Client client) {
 		for (DMXData data : this.addresses.values()) {
 			data.removeClient(client);
 		}
+		
+		for (Submaster submaster : this.submasters) {
+			submaster.removeClient(client);
+		}
+		
+		this.master.removeClient(client);
 	}
 	
 	public void deleteSubmaster(Submaster submaster) {
@@ -63,7 +77,7 @@ public class DMXEnvironment {
 	}
 	
 	public void loadSubmasters(File file) {
-		JsonArray array = Main.fromJson(file, JsonArray.class);
+		JsonArray array = JsonUtil.fromJson(file, JsonArray.class);
 		
 		if (array == null) {
 			return;
@@ -88,7 +102,7 @@ public class DMXEnvironment {
 			array.add(submaster.serialize());
 		}
 		
-		Main.toJson(file, array);
+		JsonUtil.toJson(file, array);
 	}
 	
 	public boolean isSet(short dmxAddress, InputType type) {
@@ -120,9 +134,20 @@ public class DMXEnvironment {
 			return -1;
 		}
 		
-		return this.convert(this.getFixedValue(dmxAddress, type));
+		double prercent = this.getMasterValue() / 255.0D;
+		return (short) Math.round(this.convert(this.getFixedValue(dmxAddress, type)) * prercent);
 	}
-
+	
+	public short getMasterValue() {
+		Short value = this.master.getCurrentValue();
+		
+		if (value == null) {
+			return 255;
+		} else {
+			return value.shortValue();
+		}
+	}
+	
 	public MergingMethod getMergingMethod() {
 		return this.method;
 	}

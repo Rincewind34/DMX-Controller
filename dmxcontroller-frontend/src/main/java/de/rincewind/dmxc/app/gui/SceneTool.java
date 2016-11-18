@@ -1,5 +1,8 @@
 package de.rincewind.dmxc.app.gui;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+
 import de.rincewind.dmxc.app.gui.util.FileLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,8 +17,13 @@ public class SceneTool extends TemplateComponent {
 	
 	public SceneTool() {
 		this.toolController = new ToolController();
-		FileLoader.loadFXML(this.toolController, "scene-tool.fxml", "basics.css", "scenetool.css");
+		FileLoader.loadFXML(this.toolController, "scene-tool.fxml");
 		this.toolController.init();
+	}
+	
+	@Override
+	protected JsonElement serializeSimplified() {
+		return JsonNull.INSTANCE;
 	}
 	
 	@Override

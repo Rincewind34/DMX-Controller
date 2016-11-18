@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+
 import de.rincewind.dmxc.app.Main;
 import de.rincewind.dmxc.common.Console;
 import de.rincewind.dmxc.common.packets.incoming.PacketPlayInUpdateSubmaster;
 
-public class Submaster implements Fadeable {
+public class Submaster extends Fadeable {
 	
 	private static List<Submaster> submasters;
 	
@@ -32,27 +35,34 @@ public class Submaster implements Fadeable {
 			}
 		}
 		
-		return null;
+		return new GhostSubmaster(name);
 	}
 	
 	public static List<Submaster> getAll() {
 		return Collections.unmodifiableList(Submaster.submasters);
 	}
 	
+	protected static Submaster get(JsonElement element) {
+		return Submaster.get(element.getAsString());
+	}
+	
 	
 	private String name;
 	
-	private Submaster(String name) {
+	protected Submaster(String name) {
 		this.name = name;
 	}
 	
 	@Override
 	public void update(Short value) {
-		if (!Submaster.submasters.contains(this)) {
-			return;
+		if (Submaster.get(this.name) != null) {
+			Main.client().releasePacket(new PacketPlayInUpdateSubmaster(this.name, value));
 		}
-		
-		Main.client().releasePacket(new PacketPlayInUpdateSubmaster(this.name, value));
+	}
+	
+	@Override
+	public String getType() {
+		return "submaster";
 	}
 	
 	@Override
@@ -67,6 +77,20 @@ public class Submaster implements Fadeable {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	@Override
+	protected JsonElement serializeSimplified() {
+		return new JsonPrimitive(this.name);
+	}
+	
+	
+	public static class GhostSubmaster extends Submaster {
+
+		protected GhostSubmaster(String name) {
+			super(name);
+		}
+		
 	}
 	
 }

@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<Slider fx:id="fader" orientation="VERTICAL" VBox.vgrow="ALWAYS">
 			<styleClass>
@@ -24,8 +23,7 @@
 				<String fx:value="basic-element" />
 			</styleClass>
 		</Button>
-		<ToggleButton fx:id="settingButton" mnemonicParsing="false"
-			text="Push 0">
+		<ToggleButton fx:id="settingButton" mnemonicParsing="false" text="Push 0">
 			<VBox.margin>
 				<Insets top="10.0" />
 			</VBox.margin>
@@ -39,4 +37,8 @@
 		<String fx:value="fader-box" />
 		<String fx:value="basic-container" />
 	</styleClass>
+   <stylesheets>
+      <URL value="@../css/basics.css" />
+      <URL value="@../css/fader.css" />
+   </stylesheets>
 </fx:root>

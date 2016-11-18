@@ -1,0 +1,24 @@
+.scene-tool-box {
+	-fx-spacing: 0.0px;
+}
+
+.scene-tool-box .slider {
+	-fx-block-increment: 0.0;
+	-fx-show-tick-marks: true;
+	-fx-show-tick-labels: true;
+	-fx-major-tick-unit: 2.0;
+	-fx-minor-tick-count: 4.0;
+	-fx-snap-to-ticks: true;
+}
+
+.scene-tool-box .button-box {
+	-fx-spacing: 10.0px;
+}
+
+.scene-tool-box .button-box .button {
+	-fx-min-width: 80.0px;
+}
+
+.scene-tool-box .button-box .toggle-button {
+	-fx-min-width: 80.0px;
+}

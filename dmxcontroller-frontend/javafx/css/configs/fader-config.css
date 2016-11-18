@@ -1,0 +1,8 @@
+.basic-container {
+	-fx-alignment: center;
+	-fx-max-width: 170px;
+}
+
+.basic-container .basic-element {
+	-fx-min-width: 170px;
+}

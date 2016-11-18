@@ -3,6 +3,8 @@ package de.rincewind.dmxc.app.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.JsonElement;
+
 import de.rincewind.dmxc.app.gui.util.Color;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
 import javafx.geometry.Pos;
@@ -16,6 +18,10 @@ import javafx.scene.layout.VBox;
 public abstract class TemplateComponent extends VBox {
 	
 	public static final Color BORDER_COLOR = new Color(0x55, 0x55, 0x55);
+	
+	protected static void setBackgroundColor(Pane pane, Color color) {
+		pane.setStyle("-fx-background-color: " + TemplateComponent.BORDER_COLOR.toCSS() + ", " + color.toCSS() + ";");
+	}
 	
 	private Template root;
 	
@@ -36,7 +42,6 @@ public abstract class TemplateComponent extends VBox {
 		this.setAlignment(Pos.CENTER);
 		this.setPrefHeight(Region.USE_COMPUTED_SIZE);
 		this.setMaxHeight(Double.MAX_VALUE);
-		this.getChildren().add(this.labelCaption);
 	}
 	
 	public void update() {
@@ -45,7 +50,8 @@ public abstract class TemplateComponent extends VBox {
 	
 	public void setContent(TemplateContent content) {
 		if (this.currentContent != null) {
-			this.getChildren().remove(this.currentContent);
+			this.removeContent();
+			this.removeCaption();
 		}
 		
 		Pane pane = null;
@@ -61,7 +67,8 @@ public abstract class TemplateComponent extends VBox {
 		if (pane != null) {
 			this.currentContent = pane;
 			VBox.setVgrow(this.currentContent, Priority.ALWAYS);
-			this.getChildren().add(this.currentContent);
+			this.addCaption();
+			this.addContent();
 		}
 	}
 	
@@ -76,6 +83,8 @@ public abstract class TemplateComponent extends VBox {
 	public Template getRoot() {
 		return this.root;
 	}
+	
+	protected abstract JsonElement serializeSimplified();
 	
 	protected abstract Pane getToolPane();
 	
@@ -92,6 +101,22 @@ public abstract class TemplateComponent extends VBox {
 		});
 		
 		this.captionControler.add(textCaption);
+	}
+	
+	private void addCaption() {
+		this.getChildren().add(this.labelCaption);
+	}
+	
+	private void addContent() {
+		this.getChildren().add(this.currentContent);
+	}
+	
+	private void removeCaption() {
+		this.getChildren().remove(this.labelCaption);
+	}
+	
+	private void removeContent() {
+		this.getChildren().remove(this.currentContent);
 	}
 	
 }

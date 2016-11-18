@@ -8,6 +8,7 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import de.rincewind.dmxc.common.util.JsonUtil;
 import de.rincewind.dmxc.system.network.Client;
 
 public class AccountManagement {
@@ -19,7 +20,7 @@ public class AccountManagement {
 	}
 	
 	public void loadAccounts(File file) {
-		JsonArray array = Main.fromJson(file, JsonArray.class);
+		JsonArray array = JsonUtil.fromJson(file, JsonArray.class);
 		
 		if (array == null) {
 			return;
@@ -41,7 +42,7 @@ public class AccountManagement {
 			array.add(object);
 		}
 		
-		Main.toJson(file, array);
+		JsonUtil.toJson(file, array);
 	}
 	
 	public void addAccount(Account account) {

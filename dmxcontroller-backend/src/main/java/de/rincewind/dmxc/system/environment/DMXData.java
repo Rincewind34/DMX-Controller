@@ -26,7 +26,7 @@ public class DMXData {
 			this.datas.put(client, value);
 		}
 		
-		this.valueChanged = (current == null && this.getCurrentValue() != null) || !current.equals(this.getCurrentValue());
+		this.valueChanged = (current == null && this.getCurrentValue() != null) || (current != null && !current.equals(this.getCurrentValue()));
 	}
 	
 	public void resetChangeState() {

@@ -1,0 +1,50 @@
+.basic-container {
+	-fx-alignment: center;
+	-fx-spacing: 40px;
+}
+
+.basic-container .numpad {
+	-fx-spacing: 20.0px;
+	-fx-alignment: center;
+	-fx-max-height: 240px;
+}
+
+.basic-container .numpad .grid {
+	-fx-min-width: 110.0px;
+	-fx-max-width: 110.0px;
+}
+
+.basic-container .numpad .label {
+	-fx-min-width: 110.0px;
+	-fx-max-width: 110.0px;
+	
+	-fx-font-size: 10px;
+	-fx-background-insets: 0.0, 2.0;
+	-fx-background-color: #777, #DDD;
+	
+	-fx-effect: dropshadow(one-pass-box, #222, 5.0, 0.1, 1.0, 1.0);
+}
+
+.basic-container .numpad .button {
+	-fx-min-width: 30.0px;
+	-fx-max-width: 30.0px;
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+}
+
+.basic-container .numpad .thru-button {
+	-fx-font-size: 10.0px;
+}
+
+.basic-container .numpad .clear-button-container {
+	-fx-spacing: 10px;
+	-fx-min-width: 110.0px;
+	-fx-max-width: 110.0px;
+}
+
+.basic-container .numpad .clear-button-container .button {
+	-fx-min-width: 50.0px;
+	-fx-max-width: 50.0px;
+	-fx-min-height: 30.0px;
+	-fx-max-height: 30.0px;
+}
