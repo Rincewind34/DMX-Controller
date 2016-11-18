@@ -61,7 +61,6 @@ public class Fader extends TemplateComponent {
 		}
 		
 		this.faderBase().updateSlider();
-		System.out.println(this.toolPane.getSpacing());
 	}
 	
 	public FaderBase faderBase() {

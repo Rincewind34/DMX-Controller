@@ -1,9 +1,12 @@
+.numpad-root {
+	-fx-alignment: center;
+	-fx-spacing: 40px;
+}
+
 .numpad {
-	-fx-min-width: 130.0px;
-	-fx-max-width: 130.0px;
-	-fx-pref-height: 260.0px;
 	-fx-spacing: 20.0px;
 	-fx-alignment: center;
+	-fx-max-height: 240px;
 }
 
 .numpad .grid {

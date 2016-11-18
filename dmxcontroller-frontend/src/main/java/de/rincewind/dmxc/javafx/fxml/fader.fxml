@@ -15,22 +15,22 @@
 			</styleClass>
 		</Slider>
 		<Button fx:id="flashButton" mnemonicParsing="false" text="Flash">
-			<VBox.margin>
-				<Insets top="15.0" />
-			</VBox.margin>
 			<styleClass>
 				<String fx:value="basic-button" />
 				<String fx:value="basic-element" />
 			</styleClass>
+         <VBox.margin>
+            <Insets top="15.0" />
+         </VBox.margin>
 		</Button>
 		<ToggleButton fx:id="settingButton" mnemonicParsing="false" text="Push 0">
-			<VBox.margin>
-				<Insets top="10.0" />
-			</VBox.margin>
 			<styleClass>
 				<String fx:value="basic-toggle-button" />
 				<String fx:value="basic-element" />
 			</styleClass>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
 		</ToggleButton>
 	</children>
 	<styleClass>

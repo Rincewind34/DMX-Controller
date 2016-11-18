@@ -1,3 +1,4 @@
+
 /* Nodes */
 
 .basic-element {
@@ -6,13 +7,26 @@
 	-fx-faint-focus-color: transparent;
 }
 
-.basic-list .list-cell:selected {
+.basic-combobox {
+	-fx-background-radius: 0.0;
+	-fx-background-insets: 0.0, 1.0;
+	-fx-background-color: #BBB, linear-gradient(to bottom, #DDD, #999);
+	-fx-effect: dropshadow(one-pass-box, #222, 5.0, 0.1, 2.0, 2.0);
+}
+
+.basic-combobox .combo-box-popup .list-view .list-cell:selected, .basic-combobox .combo-box-popup .list-view .list-cell:focused {
 	-fx-background-color: #999;
 	-fx-background-insets: 0.0;
 	-fx-text-fill: #FFF;
 }
 
-.basic-list .list-cell:focused {
+.basic-combobox .combo-box-popup .list-view .list-cell:hover {
+	-fx-background-color: #CCC;
+	-fx-background-insets: 0.0;
+	-fx-text-fill: #FFF;
+}
+
+.basic-list .list-cell:selected, .basic-list .list-cell:focused {
 	-fx-background-color: #999;
 	-fx-background-insets: 0.0;
 	-fx-text-fill: #FFF;
@@ -114,6 +128,7 @@
 	-fx-background-insets: 0.0, 3.0;
 	-fx-background-color: #555, #FFF;
 	-fx-padding: 10.0px;
+	-fx-min-height: 300.0px;
 }
 
 .scene-box {

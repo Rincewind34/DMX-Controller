@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -31,6 +32,9 @@
 				<String fx:value="basic-element" />
 				<String fx:value="basic-button" />
 			</styleClass>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
 		</Button>
 	</children>
 	<stylesheets>

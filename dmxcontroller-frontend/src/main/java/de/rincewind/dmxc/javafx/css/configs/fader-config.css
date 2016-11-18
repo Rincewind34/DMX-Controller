@@ -3,6 +3,6 @@
 	-fx-max-width: 170px;
 }
 
-.basic-container .button {
+.basic-container .basic-element {
 	-fx-min-width: 170px;
 }
