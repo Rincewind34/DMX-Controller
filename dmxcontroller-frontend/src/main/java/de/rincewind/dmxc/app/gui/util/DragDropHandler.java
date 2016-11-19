@@ -118,11 +118,11 @@ public class DragDropHandler {
 				if (!this.infiniteNode) {
 					this.root.getChildren().remove(this.current);
 				} else {
-					this.registerInfiniteNode(this.supplier, event.getDragboard().getImage(), this.index);
+					this.registerInfiniteNode(this.supplier, this.image, this.index);
 				}
 					
 				this.root.getChildren().add(targetIndex, this.current);
-				this.registerNode(this.current, event.getDragboard().getImage());
+				this.registerNode(this.current, this.image);
 				this.current = null;
 				
 				success = true;
