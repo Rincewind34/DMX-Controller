@@ -1,5 +1,7 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 
@@ -18,10 +20,10 @@ public class MasterFader extends TemplateComponent {
 	private ToolController toolPane;
 	
 	public MasterFader() {
+		this.setCaption("Master");
 		this.toolPane = new ToolController();
 		FileLoader.loadFXML(this.toolPane, "masterfader.fxml");
 		this.toolPane.init();
-		this.setCaption("Master");
 		
 		TemplateComponent.setBackgroundColor(this.toolPane, new Color(0x46, 0x00, 0x00));
 	}
@@ -65,6 +67,11 @@ public class MasterFader extends TemplateComponent {
 	@Override
 	protected Pane getConfigPane() {
 		return null;
+	}
+	
+	@Override
+	protected InputStream getDragDropImageStream() {
+		return FileLoader.getImageStream("faders");
 	}
 	
 	

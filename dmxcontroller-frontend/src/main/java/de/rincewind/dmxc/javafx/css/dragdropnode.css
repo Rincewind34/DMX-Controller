@@ -1,0 +1,10 @@
+.node-case {
+	-fx-min-width: 120px;
+	-fx-max-width: 120px;
+	-fx-min-height: 120px;
+	-fx-max-height: 120px;
+	-fx-alignment: center;
+	-fx-background-insets: 0.0, 3.0;
+	-fx-background-color: #555, #FFF;
+	-fx-padding: 10.0px;
+}

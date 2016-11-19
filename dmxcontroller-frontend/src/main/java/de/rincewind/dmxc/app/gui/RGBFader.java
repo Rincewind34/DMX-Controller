@@ -1,5 +1,7 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -26,6 +28,7 @@ public class RGBFader extends TemplateComponent {
 	private ConfigController configPane;
 	
 	public RGBFader() {
+		this.setCaption("RGB-Fader");
 		this.toolPane = new ToolController();
 		FileLoader.loadFXML(this.toolPane, "rgb-fader.fxml");
 		this.toolPane.init();
@@ -113,6 +116,11 @@ public class RGBFader extends TemplateComponent {
 	@Override
 	protected Pane getConfigPane() {
 		return this.configPane;
+	}
+	
+	@Override
+	protected InputStream getDragDropImageStream() {
+		return FileLoader.getImageStream("complexfaders");
 	}
 	
 	

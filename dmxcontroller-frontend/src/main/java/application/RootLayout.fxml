@@ -18,7 +18,7 @@
                <content>
                   <VBox fx:id="left_pane" spacing="10.0" />
                </content></ScrollPane>
-          <AnchorPane fx:id="right_pane" />
+            <HBox fx:id="right_pane" prefHeight="100.0" prefWidth="200.0" />
         </items>
       </SplitPane>
    </children>

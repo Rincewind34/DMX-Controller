@@ -1,5 +1,7 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
+
 import com.google.gson.JsonElement;
 
 import de.rincewind.dmxc.app.api.Fadeable;
@@ -21,6 +23,7 @@ public class HardFader extends TemplateComponent {
 	}
 	
 	public HardFader(Fadeable target) {
+		this.setCaption("Hard-Fader");
 		this.toolController = new ToolController();
 		
 		FileLoader.loadFXML(this.toolController, "hard-fader.fxml");
@@ -55,6 +58,12 @@ public class HardFader extends TemplateComponent {
 	protected Pane getConfigPane() {
 		return new Pane();
 	}
+	
+	@Override
+	protected InputStream getDragDropImageStream() {
+		return FileLoader.getImageStream("faders");
+	}
+	
 	
 	private static class ToolController extends HBox {
 		

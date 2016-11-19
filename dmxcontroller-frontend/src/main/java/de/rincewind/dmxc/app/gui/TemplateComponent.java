@@ -1,5 +1,6 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +9,12 @@ import com.google.gson.JsonObject;
 
 import de.rincewind.dmxc.app.gui.util.Color;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -58,15 +62,16 @@ public abstract class TemplateComponent extends VBox {
 	private Label labelCaption;
 	private Pane currentContent;
 	
+	private Image image;
+	
 	private List<TextField> captionControler;
 	
 	public TemplateComponent() {
 		this.captionControler = new ArrayList<>();
 		
 		this.labelCaption = new Label("");
-		this.labelCaption.getStyleClass().add(".basic-element");
-		this.labelCaption.getStyleClass().add(".basic-label");
-		this.labelCaption.getStyleClass().add(FileLoader.PATH_CSS + "basics.css");
+		
+		this.image = new Image(this.getDragDropImageStream());
 		
 		this.setSpacing(5.0D);
 		this.setAlignment(Pos.CENTER);
@@ -93,7 +98,7 @@ public abstract class TemplateComponent extends VBox {
 		} else if (content == TemplateContent.CONFIG) {
 			pane = this.getConfigPane();
 		} else if (content == TemplateContent.DRAG_DROP) {
-			
+			pane = DragDropNode.create(this.image);
 		}
 		
 		if (pane != null) {
@@ -116,6 +121,10 @@ public abstract class TemplateComponent extends VBox {
 		return this.root;
 	}
 	
+	public Image getDragDropImage() {
+		return this.image;
+	}
+	
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", this.getType());
@@ -129,6 +138,8 @@ public abstract class TemplateComponent extends VBox {
 	protected abstract Pane getToolPane();
 	
 	protected abstract Pane getConfigPane();
+	
+	protected abstract InputStream getDragDropImageStream();
 	
 	protected void setRoot(Template template) {
 		this.root = template;
@@ -157,6 +168,21 @@ public abstract class TemplateComponent extends VBox {
 	
 	private void removeContent() {
 		this.getChildren().remove(this.currentContent);
+	}
+	
+	
+	private static class DragDropNode extends VBox {
+		
+		private static DragDropNode create(Image image) {
+			DragDropNode node = new DragDropNode();
+			FileLoader.loadFXML(node, "dragdropnode.fxml");
+			node.imageView.setImage(image);
+			return node;
+		}
+		
+		@FXML
+		private ImageView imageView;
+		
 	}
 	
 }

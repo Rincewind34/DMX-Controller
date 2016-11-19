@@ -1,5 +1,7 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
+
 import com.google.gson.JsonElement;
 
 import de.rincewind.dmxc.app.api.Channel;
@@ -40,6 +42,7 @@ public class Fader extends TemplateComponent {
 	}
 	
 	public Fader(Fadeable target) {
+		this.setCaption("Fader");
 		this.toolPane = new ToolController();
 		FileLoader.loadFXML(this.toolPane, "fader.fxml");
 		this.toolPane.init();
@@ -85,6 +88,11 @@ public class Fader extends TemplateComponent {
 	@Override
 	protected Pane getConfigPane() {
 		return this.configPane;
+	}
+	
+	@Override
+	protected InputStream getDragDropImageStream() {
+		return FileLoader.getImageStream("faders");
 	}
 	
 	

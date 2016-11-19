@@ -173,31 +173,29 @@
 					</content>
 				</ScrollPane>
 				<Region prefHeight="200.0" prefWidth="200.0" styleClass="region" />
-				<ScrollPane fx:id="dragScrollPane" hbarPolicy="NEVER" prefHeight="100.0" prefWidth="0.0" styleClass="pane-selector" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS" />
+				<ScrollPane fx:id="dragScrollPane" hbarPolicy="NEVER" prefHeight="100.0" prefWidth="0.0" styleClass="pane-selector" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="dragContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" />
+               </content></ScrollPane>
 			</children>
 		</HBox>
 		<HBox styleClass="buttonbox">
 			<children>
-				<Button fx:id="button" mnemonicParsing="false" text="Configuration">
+				<Button fx:id="buttonConfig" mnemonicParsing="false" text="Configuration">
 					<styleClass>
 						<String fx:value="basic-element" />
 						<String fx:value="basic-button" />
 					</styleClass>
 				</Button>
 				<Region HBox.hgrow="ALWAYS" />
-				<Button mnemonicParsing="false">
+				<Button fx:id="buttonHome" mnemonicParsing="false" text="Home">
 					<styleClass>
 						<String fx:value="basic-element" />
 						<String fx:value="basic-button" />
 					</styleClass>
 				</Button>
-				<Button mnemonicParsing="false">
-					<styleClass>
-						<String fx:value="basic-element" />
-						<String fx:value="basic-button" />
-					</styleClass>
-				</Button>
-				<Button mnemonicParsing="false">
+            <Region HBox.hgrow="ALWAYS" />
+				<Button fx:id="buttonDrag" mnemonicParsing="false" text="Drag-Drop">
 					<styleClass>
 						<String fx:value="basic-element" />
 						<String fx:value="basic-button" />

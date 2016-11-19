@@ -1,5 +1,7 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
+
 import com.google.gson.JsonElement;
 
 import de.rincewind.dmxc.app.api.ChannelSelection;
@@ -12,8 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class NumberPad extends TemplateComponent {
 
@@ -25,6 +27,7 @@ public class NumberPad extends TemplateComponent {
 	}
 	
 	public NumberPad(Fadeable target) {
+		this.setCaption("Number-Pad");
 		this.toolPane = new ToolController();
 		FileLoader.loadFXML(this.toolPane, "numberpad.fxml");
 		this.toolPane.init();
@@ -66,8 +69,14 @@ public class NumberPad extends TemplateComponent {
 	protected Pane getConfigPane() {
 		return this.configPane;
 	}
+	
+	@Override
+	protected InputStream getDragDropImageStream() {
+		return FileLoader.getImageStream("numberpad");
+	}
+	
 
-	private static class ToolController extends VBox {
+	private static class ToolController extends HBox {
 
 		@FXML
 		private Button button0;

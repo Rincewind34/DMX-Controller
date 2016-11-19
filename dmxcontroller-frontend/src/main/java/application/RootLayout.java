@@ -12,6 +12,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class RootLayout extends AnchorPane {
@@ -19,7 +20,7 @@ public class RootLayout extends AnchorPane {
 	@FXML
 	SplitPane base_pane;
 	@FXML
-	AnchorPane right_pane;
+	HBox right_pane;
 	@FXML
 	VBox left_pane;
 

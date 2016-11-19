@@ -1,5 +1,7 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 
@@ -16,6 +18,7 @@ public class SceneTool extends TemplateComponent {
 	private ToolController toolController;
 	
 	public SceneTool() {
+		this.setCaption("Scene-Tool");
 		this.toolController = new ToolController();
 		FileLoader.loadFXML(this.toolController, "scene-tool.fxml");
 		this.toolController.init();
@@ -39,7 +42,12 @@ public class SceneTool extends TemplateComponent {
 	@Override
 	protected Pane getConfigPane() {
 		return new Pane();
-	}	
+	}
+	
+	@Override
+	protected InputStream getDragDropImageStream() {
+		return null;
+	}
 	
 	
 	private static class ToolController extends HBox {

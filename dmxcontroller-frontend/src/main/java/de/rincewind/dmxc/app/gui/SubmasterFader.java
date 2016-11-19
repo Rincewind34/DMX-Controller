@@ -1,5 +1,6 @@
 package de.rincewind.dmxc.app.gui;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class SubmasterFader extends TemplateComponent {
 	private ConfigController configPane;
 	
 	public SubmasterFader() {
+		this.setCaption("Submasters");
 		this.toolPane = new ToolController();
 		FileLoader.loadFXML(this.toolPane, "submaster-fader.fxml");
 		this.toolPane.init();
@@ -101,6 +103,12 @@ public class SubmasterFader extends TemplateComponent {
 	protected Pane getConfigPane() {
 		return this.configPane;
 	}
+	
+	@Override
+	protected InputStream getDragDropImageStream() {
+		return FileLoader.getImageStream("faders");
+	}
+	
 	
 	private static class ToolController extends HBox {
 		
