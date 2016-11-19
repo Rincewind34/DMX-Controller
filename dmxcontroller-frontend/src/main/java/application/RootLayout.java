@@ -38,7 +38,6 @@ public class RootLayout extends AnchorPane {
 
 		try {
 			fxmlLoader.load();
-
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}

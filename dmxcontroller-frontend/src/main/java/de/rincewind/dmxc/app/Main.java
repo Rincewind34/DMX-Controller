@@ -3,9 +3,8 @@ package de.rincewind.dmxc.app;
 import java.io.File;
 import java.util.Optional;
 
-import de.rincewind.dmxc.app.api.Channel;
-import de.rincewind.dmxc.app.gui.Fader;
-import de.rincewind.dmxc.app.gui.SubmasterFader;
+import com.google.gson.JsonObject;
+
 import de.rincewind.dmxc.app.gui.Template;
 import de.rincewind.dmxc.app.gui.dialog.Credential;
 import de.rincewind.dmxc.app.gui.dialog.DialogCredetial;
@@ -49,6 +48,10 @@ public class Main extends Application {
 		Main.stage.setOnHidden((event) -> {
 			if (Main.inShutdown) {
 				return;
+			}
+			
+			if (Main.templateFile.exists()) {
+				JsonUtil.toJson(Main.templateFile, Main.template.serialize());
 			}
 			
 			if (!Main.inDisconnect) {
@@ -191,16 +194,14 @@ public class Main extends Application {
 	
 	public static void showMainWindow() {
 		Platform.runLater(() -> {
-			Main.template = new Template();
-			
-			for (int i = 1; i <= 10; i++) {
-				Fader fader = new Fader(Channel.fromAddress((short) i));
-				fader.setCaption("Channel " + i);
-				Main.template.addComponent(fader);
-			}
-			
-			Main.template.addComponent(new SubmasterFader());
-			
+			Main.template = new Template(JsonUtil.fromJson(Main.templateFile, JsonObject.class));
+//			
+//			for (int i = 0; i < 10; i++) {
+//				Main.template.addComponent(new Fader(Channel.fromAddress((short) (i + 1))));
+//			}
+//			
+//			Main.template.addComponent(new SubmasterFader());
+//			
 			Main.stage.setScene(new Scene(Main.template));
 			Main.stage.show();
 		});

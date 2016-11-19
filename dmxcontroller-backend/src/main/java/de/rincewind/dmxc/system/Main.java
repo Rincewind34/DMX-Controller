@@ -29,6 +29,7 @@ public class Main {
 		
 		Main.environment = new DMXEnvironment(MergingMethod.HIGHST_VALUE);
 		Main.environment.loadSubmasters(Main.submastersFile);
+		Main.environment.create();
 		
 		Main.management = new AccountManagement();
 		Main.accountsFile = new File("accounts.json");
@@ -79,6 +80,8 @@ public class Main {
 		if (Main.server.isConnected()) {
 			Main.server.disconnect();
 		}
+		
+		Main.environment.destroy();
 		
 		try {
 			Console.closeConsole();

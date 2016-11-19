@@ -9,8 +9,6 @@ import de.rincewind.dmxc.system.network.Client;
 
 public class DMXData {
 	
-	private boolean valueChanged;
-	
 	private Map<Client, Short> datas;
 	
 	public DMXData() {
@@ -18,27 +16,15 @@ public class DMXData {
 	}
 	
 	public void update(Client client, Short value) {
-		Short current = this.getCurrentValue();
-		
 		if (value == null) {
 			this.datas.remove(client);
 		} else {
 			this.datas.put(client, value);
 		}
-		
-		this.valueChanged = (current == null && this.getCurrentValue() != null) || (current != null && !current.equals(this.getCurrentValue()));
-	}
-	
-	public void resetChangeState() {
-		this.valueChanged = false;
 	}
 	
 	public void removeClient(Client client) {
 		this.datas.remove(client);
-	}
-	
-	public boolean valueChanged() {
-		return this.valueChanged;
 	}
 	
 	public Short getCurrentValue() {

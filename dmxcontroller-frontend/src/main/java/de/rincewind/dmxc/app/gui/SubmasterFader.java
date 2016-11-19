@@ -175,6 +175,7 @@ public class SubmasterFader extends TemplateComponent {
 				} else if (newValue == false && !button.isSelected()) {
 					this.current = -1;
 					this.base.setTarget(null);
+					this.base.setFaderValue((short) 0);
 					this.updateDisable();
 				}
 			});

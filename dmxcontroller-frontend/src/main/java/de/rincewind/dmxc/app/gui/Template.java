@@ -131,13 +131,15 @@ public class Template extends VBox {
 	public Template(JsonObject object) {
 		this();
 		
-		JsonArray array = object.get("template").getAsJsonArray();
-		
-		for (int i = 0; i < array.size(); i++) {
-			this.addComponent(TemplateComponent.deserialize(array.get(i).getAsJsonObject()));
+		if (object != null) {
+			JsonArray array = object.get("template").getAsJsonArray();
+			
+			for (int i = 0; i < array.size(); i++) {
+				this.addComponent(TemplateComponent.deserialize(array.get(i).getAsJsonObject()));
+			}
+			
+			this.setContent(TemplateContent.valueOf(object.get("content").getAsString()));
 		}
-		
-		this.setContent(TemplateContent.valueOf(object.get("content").getAsString()));
 	}
 	
 	public void setContent(TemplateContent displayContent) {
@@ -181,7 +183,7 @@ public class Template extends VBox {
 		JsonObject object = new JsonObject();
 		JsonArray array = new JsonArray();
 		
-		for (Node node : this.getChildren()) {
+		for (Node node : this.content.getChildren()) {
 			if (node instanceof TemplateComponent) {
 				array.add(((TemplateComponent) node).serialize());
 			}

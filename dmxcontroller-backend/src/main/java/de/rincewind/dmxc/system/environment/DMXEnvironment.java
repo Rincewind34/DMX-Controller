@@ -15,6 +15,7 @@ import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster.Action;
 import de.rincewind.dmxc.common.util.JsonUtil;
 import de.rincewind.dmxc.system.Main;
+import de.rincewind.dmxc.system.UpdateTask;
 import de.rincewind.dmxc.system.network.Client;
 
 public class DMXEnvironment {
@@ -26,6 +27,9 @@ public class DMXEnvironment {
 	private Map<Short, DMXData> addresses;
 	
 	private DMXData master;
+	private DMXInterface dmxInterface;
+	
+	private Thread updateThread;
 	
 	public DMXEnvironment(MergingMethod method) {
 		this.method = method;
@@ -36,6 +40,26 @@ public class DMXEnvironment {
 		for (short i = 1; i <= 512; i++) {
 			this.addresses.put(i, new DMXData());
 		}
+		
+		this.updateThread = new Thread(new UpdateTask());
+	}
+	
+	public void create() {
+		Console.println("Opening interface");
+		this.dmxInterface = new DMXInterface();
+		Console.println("Result: " + this.dmxInterface.openInterface());
+		
+		Console.println("Starting update thread");
+		this.updateThread.start();
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void destroy() {
+		Console.println("Closing interface");
+		this.dmxInterface.closeInterface();
+		
+		Console.println("Stoping update thread");
+		this.updateThread.stop();
 	}
 	
 	public void setMergingMethod(MergingMethod method) {
@@ -172,6 +196,10 @@ public class DMXEnvironment {
 		return null;
 	}
 	
+	public DMXInterface getDMXInterface() {
+		return this.dmxInterface;
+	}
+	
 	public List<Submaster> getSubmasters() {
 		return Collections.unmodifiableList(this.submasters);
 	}
@@ -188,9 +216,37 @@ public class DMXEnvironment {
 		return result;
 	}
 	
+	public void updateChangedValues() {
+		for (short dmxAddress = 1; dmxAddress <= 512; dmxAddress++) {
+			this.dmxInterface.sendData(dmxAddress, this.getCurrentValue(dmxAddress, this.getCurrentType(dmxAddress)));
+		}
+	}
+	
 	private Short getFixedValue(short dmxAddress, InputType type) {
 		if (type == InputType.CHANNEL) {
-			return this.addresses.get(dmxAddress).getCurrentValue();
+			return this.getCurrentData(dmxAddress, type).getCurrentValue();
+		} else if (type == InputType.SUBMASTER) {
+			Submaster submaster = (Submaster) this.getCurrentData(dmxAddress, type);
+			
+			if (submaster == null || submaster.getCurrentValue() == null) {
+				return null;
+			}
+			
+			short current = submaster.getCurrentValue().shortValue();
+			double prercent = current / 255.0D;
+			return (short) Math.round(submaster.getTargetValues().get(dmxAddress) * prercent);
+		} else if (type == InputType.EFFECT) {
+			return null;
+		} else if (type == InputType.NONE) {
+			return null;
+		} else {
+			return null;
+		}
+	}
+	
+	private DMXData getCurrentData(short dmxAddress, InputType type) {
+		if (type == InputType.CHANNEL) {
+			return this.addresses.get(dmxAddress);
 		} else if (type == InputType.SUBMASTER) {
 			short current = -1;
 			Submaster submaster = null;
@@ -204,12 +260,7 @@ public class DMXEnvironment {
 				}
 			}
 			
-			if (current == -1) {
-				return null;
-			} else {
-				double prercent = current / 255.0D;
-				return (short) Math.round(submaster.getTargetValues().get(dmxAddress) * prercent);
-			}
+			return submaster;
 		} else if (type == InputType.EFFECT) {
 			return null;
 		} else if (type == InputType.NONE) {

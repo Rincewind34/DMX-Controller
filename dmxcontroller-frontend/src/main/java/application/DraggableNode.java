@@ -31,8 +31,6 @@ public class DraggableNode extends AnchorPane {
 	@FXML
 	private Label close_button;
 
-	private final DraggableNode self;
-
 	public DraggableNode() {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("DraggableNode.fxml"));
@@ -40,11 +38,8 @@ public class DraggableNode extends AnchorPane {
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 
-		this.self = this;
-
 		try {
 			fxmlLoader.load();
-
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
@@ -144,8 +139,8 @@ public class DraggableNode extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				AnchorPane parent = (AnchorPane) DraggableNode.this.self.getParent();
-				parent.getChildren().remove(DraggableNode.this.self);
+				AnchorPane parent = (AnchorPane) DraggableNode.this.getParent();
+				parent.getChildren().remove(DraggableNode.this);
 			}
 
 		});
