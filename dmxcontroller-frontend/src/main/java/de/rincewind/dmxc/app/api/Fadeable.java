@@ -6,6 +6,10 @@ import com.google.gson.JsonObject;
 public abstract class Fadeable {
 	
 	public static Fadeable deserialize(JsonObject object) {
+		if (!object.has("type")) {
+			return null;
+		}
+		
 		String type = object.get("type").getAsString();
 		JsonElement data = object.get("data");
 		Fadeable fadeable = null;

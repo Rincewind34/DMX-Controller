@@ -101,9 +101,24 @@ public class RGBFader extends TemplateComponent {
 			array.add(new JsonPrimitive(this.getColorName(i)));
 		}
 		
-		object.add("redtarget", this.redBase().getTarget().serialize());
-		object.add("greentarget", this.greenBase().getTarget().serialize());
-		object.add("bluetarget", this.blueBase().getTarget().serialize());
+		if (this.redBase().getTarget() != null) {
+			object.add("redtarget", this.redBase().getTarget().serialize());
+		} else {
+			object.add("redtarget", new JsonObject());
+		}
+		
+		if (this.greenBase().getTarget() != null) {
+			object.add("greentarget", this.greenBase().getTarget().serialize());
+		} else {
+			object.add("greentarget", new JsonObject());
+		}
+		
+		if (this.blueBase().getTarget() != null) {
+			object.add("bluetarget", this.blueBase().getTarget().serialize());
+		} else {
+			object.add("bluetarget", new JsonObject());
+		}
+		
 		object.add("names", array);
 		return object;
 	}

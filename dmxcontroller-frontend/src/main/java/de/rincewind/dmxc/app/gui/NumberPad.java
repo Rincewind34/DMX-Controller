@@ -3,6 +3,7 @@ package de.rincewind.dmxc.app.gui;
 import java.io.InputStream;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import de.rincewind.dmxc.app.api.ChannelSelection;
 import de.rincewind.dmxc.app.api.Fadeable;
@@ -57,7 +58,11 @@ public class NumberPad extends TemplateComponent {
 	
 	@Override
 	protected JsonElement serializeSimplified() {
-		return this.faderBase().getTarget().serialize();
+		if (this.faderBase().getTarget() != null) {
+			return this.faderBase().getTarget().serialize();
+		} else {
+			return new JsonObject();
+		}
 	}
 	
 	@Override

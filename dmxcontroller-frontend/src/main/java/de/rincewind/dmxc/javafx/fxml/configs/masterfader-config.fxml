@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root styleClass="basic-container" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<TextField fx:id="textCaption" promptText="Caption">
+			<styleClass>
+				<String fx:value="basic-element" />
+				<String fx:value="basic-text-field" />
+			</styleClass>
+		</TextField>
+		<Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+	</children>
+	<stylesheets>
+		<URL value="@../../css/basics.css" />
+		<URL value="@../../css/configs/fader-config.css" />
+	</stylesheets>
+</fx:root>
