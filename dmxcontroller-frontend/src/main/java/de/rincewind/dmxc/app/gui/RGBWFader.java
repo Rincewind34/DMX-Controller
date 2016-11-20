@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+import de.rincewind.dmxc.app.api.Fadeable;
 import de.rincewind.dmxc.app.gui.util.FaderBase;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
 import javafx.fxml.FXML;
@@ -46,29 +47,10 @@ public class RGBWFader extends TemplateComponent {
 			this.setColorName(i, array.get(i).getAsString());
 		}
 		
-		if (this.redBase().getTarget() != null) {
-			object.add("redtarget", this.redBase().getTarget().serialize());
-		} else {
-			object.add("redtarget", new JsonObject());
-		}
-		
-		if (this.greenBase().getTarget() != null) {
-			object.add("greentarget", this.greenBase().getTarget().serialize());
-		} else {
-			object.add("greentarget", new JsonObject());
-		}
-		
-		if (this.blueBase().getTarget() != null) {
-			object.add("bluetarget", this.blueBase().getTarget().serialize());
-		} else {
-			object.add("bluetarget", new JsonObject());
-		}
-		
-		if (this.whiteBase().getTarget() != null) {
-			object.add("whitetarget", this.whiteBase().getTarget().serialize());
-		} else {
-			object.add("whitetarget", new JsonObject());
-		}
+		this.redBase().setTarget(Fadeable.deserialize(object.get("redtarget").getAsJsonObject()));
+		this.greenBase().setTarget(Fadeable.deserialize(object.get("greentarget").getAsJsonObject()));
+		this.blueBase().setTarget(Fadeable.deserialize(object.get("bluetarget").getAsJsonObject()));
+		this.whiteBase().setTarget(Fadeable.deserialize(object.get("whitetarget").getAsJsonObject()));
 	}
 	
 	@Override
@@ -123,10 +105,30 @@ public class RGBWFader extends TemplateComponent {
 			array.add(new JsonPrimitive(this.getColorName(i)));
 		}
 		
-		object.add("redtarget", this.redBase().getTarget().serialize());
-		object.add("greentarget", this.greenBase().getTarget().serialize());
-		object.add("bluetarget", this.blueBase().getTarget().serialize());
-		object.add("whitetarget", this.whiteBase().getTarget().serialize());
+		if (this.redBase().getTarget() != null) {
+			object.add("redtarget", this.redBase().getTarget().serialize());
+		} else {
+			object.add("redtarget", new JsonObject());
+		}
+		
+		if (this.greenBase().getTarget() != null) {
+			object.add("greentarget", this.greenBase().getTarget().serialize());
+		} else {
+			object.add("greentarget", new JsonObject());
+		}
+		
+		if (this.blueBase().getTarget() != null) {
+			object.add("bluetarget", this.blueBase().getTarget().serialize());
+		} else {
+			object.add("bluetarget", new JsonObject());
+		}
+		
+		if (this.whiteBase().getTarget() != null) {
+			object.add("whitetarget", this.whiteBase().getTarget().serialize());
+		} else {
+			object.add("whitetarget", new JsonObject());
+		}
+		
 		return object;
 	}
 	
