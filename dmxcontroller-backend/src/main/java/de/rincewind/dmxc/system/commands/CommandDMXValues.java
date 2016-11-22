@@ -6,6 +6,7 @@ import de.rincewind.commandlib.Sender;
 import de.rincewind.commandlib.anntotations.AnnotatedCommand;
 import de.rincewind.commandlib.anntotations.AnnotationExecutor;
 import de.rincewind.commandlib.anntotations.components.Command;
+import de.rincewind.commandlib.anntotations.components.Flag;
 import de.rincewind.dmxc.common.CommandExecutor;
 import de.rincewind.dmxc.common.Console;
 import de.rincewind.dmxc.system.Main;
@@ -18,7 +19,10 @@ public class CommandDMXValues implements CommandExecutor, AnnotationExecutor<Com
 	static {
 		CommandDMXValues.command = new AnnotatedCommand<>(CommandDMXValues.class, Messages.instance);
 	}
-
+	
+	@Flag(name = "s")
+	private Boolean shorted;
+	
 	@Override
 	public void execute(String commandLine) {
 		CommandDMXValues.command.execute(Console.instance(), commandLine);
@@ -30,7 +34,7 @@ public class CommandDMXValues implements CommandExecutor, AnnotationExecutor<Com
 				+ "; master: " + Console.ANSI_HIGH_INTENSITY + Console.ANSI_BACKGROUND_RED + Main.environment().getMasterValue()
 				+ Console.ANSI_RESET + ")");
 
-		for (int i = 1; i <= 64; i++) {
+		for (int i = 1; i <= (this.shorted != null && this.shorted.booleanValue() ? 32 : 64); i++) {
 			StringBuilder builder = new StringBuilder();
 
 			for (int j = 1; j <= 8; j++) {

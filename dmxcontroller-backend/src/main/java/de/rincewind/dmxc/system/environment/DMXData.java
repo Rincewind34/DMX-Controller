@@ -9,6 +9,21 @@ import de.rincewind.dmxc.system.network.Client;
 
 public class DMXData {
 	
+	public static Map<Short, Short> multiply(double percent, Map<Short, Short> input) {
+		Map<Short, Short> result = new HashMap<>();
+		
+		for (short dmxAddress : input.keySet()) {
+			if (input.get(dmxAddress) == null) {
+				result.put(dmxAddress, null);
+			} else {
+				result.put(dmxAddress, (short) Math.round(input.get(dmxAddress).shortValue() * percent));
+			}
+		}
+		
+		return result;
+	}
+	
+	
 	private Map<Client, Short> datas;
 	
 	public DMXData() {
@@ -60,6 +75,16 @@ public class DMXData {
 			}
 			
 			return current;
+		}
+	}
+	
+	public double getCurrentPercent() {
+		Short current = this.getCurrentValue();
+		
+		if (current == null) {
+			return 0;
+		} else {
+			return current.shortValue() / 255.0D;
 		}
 	}
 	

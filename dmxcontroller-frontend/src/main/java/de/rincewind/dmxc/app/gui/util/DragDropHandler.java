@@ -189,6 +189,9 @@ public class DragDropHandler {
 		node.setOnDragDone((event) -> {
 			event.consume();
 		});
+//		
+//		Tooltip tooltip = new Tooltip("Test");
+//		Tooltip.install(node, tooltip);
 	}
 	
 	public void start() {

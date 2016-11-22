@@ -1,24 +1,24 @@
-.submaster-fader {
+.multi-fader {
 	-fx-spacing: 10.0px;
 }
 
-.submaster-fader .button-container {
+.multi-fader .button-container {
 	-fx-spacing: 10.0px;
 }
 
-.submaster-fader .button-container .toggle-button {
+.multi-fader .button-container .toggle-button {
 	-fx-min-width: 80.0px;
 	-fx-max-width: 80.0px;
 }
 
-.submaster-fader .button-container .push-zero-button {
+.multi-fader .button-container .push-zero-button {
 	-fx-background-color: #be0000, linear-gradient(to bottom, #DDD, #999);
 }
 
-.submaster-fader .button-container .push-zero-button:armed {
+.multi-fader .button-container .push-zero-button:armed {
 	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
 }
 
-.submaster-fader .button-container .push-zero-button:selected {
+.multi-fader .button-container .push-zero-button:selected {
 	-fx-background-color: #008d00, linear-gradient(to bottom, #DDD, #999);
 }

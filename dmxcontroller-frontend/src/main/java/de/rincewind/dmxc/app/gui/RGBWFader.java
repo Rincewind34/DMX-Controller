@@ -1,56 +1,26 @@
 package de.rincewind.dmxc.app.gui;
 
-import java.io.InputStream;
-
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
-import de.rincewind.dmxc.app.api.Fadeable;
 import de.rincewind.dmxc.app.gui.util.FaderBase;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
-public class RGBWFader extends TemplateComponent {
-	
-	private ToolController toolPane;
-	private ConfigController configPane;
+public class RGBWFader extends ColorFader {
 	
 	public RGBWFader() {
-		this.setCaption("RGBW-Fader");
-		this.toolPane = new ToolController();
-		FileLoader.loadFXML(this.toolPane, "rgbw-fader.fxml");
-		this.toolPane.init();
+		super(4);
 		
-		this.configPane = new ConfigController();
-		FileLoader.loadFXML(this.configPane, "configs/colorfader-config.fxml");
-		this.configPane.init(this);
+		this.setCaption("RGBW-Fader");
 	}
 	
 	protected RGBWFader(JsonElement element) {
 		this();
 		
-		JsonObject object = element.getAsJsonObject();
-		JsonArray array = object.get("names").getAsJsonArray();
-		
-		for (int i = 0; i < 3; i++) {
-			this.setColorName(i, array.get(i).getAsString());
-		}
-		
-		this.redBase().setTarget(Fadeable.deserialize(object.get("redtarget").getAsJsonObject()));
-		this.greenBase().setTarget(Fadeable.deserialize(object.get("greentarget").getAsJsonObject()));
-		this.blueBase().setTarget(Fadeable.deserialize(object.get("bluetarget").getAsJsonObject()));
-		this.whiteBase().setTarget(Fadeable.deserialize(object.get("whitetarget").getAsJsonObject()));
+		this.deserialize(element);
 	}
 	
 	@Override
@@ -58,97 +28,46 @@ public class RGBWFader extends TemplateComponent {
 		return "rgbwfader";
 	}
 	
-	public void setColorName(int index, String name) {
-		if (index == 0) {
-			this.toolPane.buttonColor1.setText(name);
-		} else if (index == 1) {
-			this.toolPane.buttonColor2.setText(name);
-		} else if (index == 2) {
-			this.toolPane.buttonColor3.setText(name);
-		}
-	}
-	
-	public String getColorName(int index) {
-		if (index == 0) {
-			return this.toolPane.buttonColor1.getText();
-		} else if (index == 1) {
-			return this.toolPane.buttonColor2.getText();
-		} else if (index == 2) {
-			return this.toolPane.buttonColor3.getText();
-		} else {
-			return null;
-		}
-	}
-	
 	public FaderBase redBase() {
-		return this.toolPane.redBase;
+		return this.getFaderBase(0);
 	}
 	
 	public FaderBase greenBase() {
-		return this.toolPane.greenBase;
+		return this.getFaderBase(1);
 	}
 	
 	public FaderBase blueBase() {
-		return this.toolPane.blueBase;
+		return this.getFaderBase(2);
 	}
 	
 	public FaderBase whiteBase() {
-		return this.toolPane.whiteBase;
+		return this.getFaderBase(3);
 	}
 	
 	@Override
-	protected JsonElement serializeSimplified() {
-		JsonObject object = new JsonObject();
-		JsonArray array = new JsonArray();
+	protected ColorFader.ToolController newToolPane() {
+		ToolController toolPane = new ToolController(this);
+		FileLoader.loadFXML(toolPane, "rgbw-fader.fxml");
+		toolPane.init();
 		
-		for (int i = 0; i < 3; i++) {
-			array.add(new JsonPrimitive(this.getColorName(i)));
-		}
+		this.initFader(0, new FaderBase(toolPane.faderRed, toolPane.flashRed, toolPane.buttonPushZero));
+		this.initFader(1, new FaderBase(toolPane.faderGreen, toolPane.flashGreen, toolPane.buttonPushZero));
+		this.initFader(2, new FaderBase(toolPane.faderBlue, toolPane.flashBlue, toolPane.buttonPushZero));
+		this.initFader(3, new FaderBase(toolPane.faderWhite, toolPane.flashWhite, toolPane.buttonPushZero));
 		
-		if (this.redBase().getTarget() != null) {
-			object.add("redtarget", this.redBase().getTarget().serialize());
-		} else {
-			object.add("redtarget", new JsonObject());
-		}
-		
-		if (this.greenBase().getTarget() != null) {
-			object.add("greentarget", this.greenBase().getTarget().serialize());
-		} else {
-			object.add("greentarget", new JsonObject());
-		}
-		
-		if (this.blueBase().getTarget() != null) {
-			object.add("bluetarget", this.blueBase().getTarget().serialize());
-		} else {
-			object.add("bluetarget", new JsonObject());
-		}
-		
-		if (this.whiteBase().getTarget() != null) {
-			object.add("whitetarget", this.whiteBase().getTarget().serialize());
-		} else {
-			object.add("whitetarget", new JsonObject());
-		}
-		
-		return object;
+		return toolPane;
 	}
 	
 	@Override
-	protected Pane getToolPane() {
-		return this.toolPane;
-	}
-	
-	@Override
-	protected Pane getConfigPane() {
-		return this.configPane;
-	}
-	
-	@Override
-	protected InputStream getDragDropImageStream() {
-		return FileLoader.getImageStream("complexfaders");
+	protected ColorFader.ConfigController newConfigPane() {
+		ConfigController configPane = new ConfigController(this);
+		FileLoader.loadFXML(configPane, "configs/colorfader-config.fxml");
+		configPane.init();
+		return configPane;
 	}
 	
 	
-	private static class ToolController extends HBox {
+	private static class ToolController extends ColorFader.ToolController {
 		
 		@FXML
 		private Button flashRed;
@@ -174,164 +93,24 @@ public class RGBWFader extends TemplateComponent {
 		@FXML
 		private Slider faderWhite;
 		
-		@FXML
-		private ToggleButton buttonPushZero;
-		
-		@FXML
-		private ToggleButton buttonSaveMode;
-		
-		@FXML
-		private Button buttonColor1;
-		
-		@FXML
-		private Button buttonColor2;
-		
-		@FXML
-		private Button buttonColor3;
-		
-		private FaderBase redBase;
-		private FaderBase greenBase;
-		private FaderBase blueBase;
-		private FaderBase whiteBase;
-		
-		private double[] color1;
-		private double[] color2;
-		private double[] color3;
-		
-		private void init() {
-			this.buttonColor1.setOnAction((event) -> {
-				if (this.buttonSaveMode.isSelected()) {
-					this.color1[0] = this.faderRed.getValue();
-					this.color1[1] = this.faderGreen.getValue();
-					this.color1[2] = this.faderBlue.getValue();
-					this.color1[3] = this.faderWhite.getValue();
-					this.buttonSaveMode.setSelected(false);
-				} else {
-					this.faderRed.setValue(this.color1[0]);
-					this.faderGreen.setValue(this.color1[1]);
-					this.faderBlue.setValue(this.color1[2]);
-					this.faderWhite.setValue(this.color1[3]);
-				}
-			});
-			
-			this.buttonColor2.setOnAction((event) -> {
-				if (this.buttonSaveMode.isSelected()) {
-					this.color2[0] = this.faderRed.getValue();
-					this.color2[1] = this.faderGreen.getValue();
-					this.color2[2] = this.faderBlue.getValue();
-					this.color2[3] = this.faderWhite.getValue();
-					this.buttonSaveMode.setSelected(false);
-				} else {
-					this.faderRed.setValue(this.color2[0]);
-					this.faderGreen.setValue(this.color2[1]);
-					this.faderBlue.setValue(this.color2[2]);
-					this.faderWhite.setValue(this.color2[3]);
-				}
-			});
-			
-			this.buttonColor3.setOnAction((event) -> {
-				if (this.buttonSaveMode.isSelected()) {
-					this.color3[0] = this.faderRed.getValue();
-					this.color3[1] = this.faderGreen.getValue();
-					this.color3[2] = this.faderBlue.getValue();
-					this.color3[3] = this.faderWhite.getValue();
-					this.buttonSaveMode.setSelected(false);
-				} else {
-					this.faderRed.setValue(this.color3[0]);
-					this.faderGreen.setValue(this.color3[1]);
-					this.faderBlue.setValue(this.color3[2]);
-					this.faderWhite.setValue(this.color3[3]);
-				}
-			});
-			
-			this.color1 = new double[4];
-			this.color2 = new double[4];
-			this.color3 = new double[4];
-			this.redBase = new FaderBase(this.faderRed, this.flashRed, this.buttonPushZero);
-			this.greenBase = new FaderBase(this.faderGreen, this.flashGreen, this.buttonPushZero);
-			this.blueBase = new FaderBase(this.faderBlue, this.flashBlue, this.buttonPushZero);
-			this.whiteBase = new FaderBase(this.faderWhite, this.flashWhite, this.buttonPushZero);
+		public ToolController(ColorFader root) {
+			super(root);
 		}
 		
 	}
 	
-	private static class ConfigController extends VBox {
+	private static class ConfigController extends ColorFader.ConfigController {
 		
-		@FXML
-		private TextField textCaption;
-		
-		@FXML
-		private TextField textColorName;
-		
-		@FXML
-		private Button buttonSetSelection;
-		
-		@FXML
-		private Label labelSelection;
-		
-		@FXML
-		private ComboBox<String> boxColors;
-		
-		@FXML
-		private ComboBox<String> boxColorNames;
-		
-		private void init(RGBWFader fader) {
-			fader.bindCaptionField(this.textCaption);
-			
-			this.boxColors.getItems().add("Red");
-			this.boxColors.getItems().add("Green");
-			this.boxColors.getItems().add("Blue");
-			this.boxColors.getItems().add("White");
-			this.boxColors.getSelectionModel().select(0);
-			
-			this.boxColors.getSelectionModel().selectedItemProperty().addListener((observeable, oldValue, newValue) -> {
-				this.updateDisplay(this.getFaderBase(fader));
-			});
-			
-			this.boxColorNames.getSelectionModel().selectedItemProperty().addListener((observeable, oldValue, newValue) -> {
-				this.updateColorField(fader);
-			});
-			
-			this.buttonSetSelection.setOnAction((event) -> {
-				this.updateSelection(fader);
-			});
-			
-			this.textColorName.textProperty().addListener((observeable, oldValue, newValue) -> {
-				fader.setColorName(this.getColorIndex(), newValue);
-			});
-			
-			this.updateDisplay(this.getFaderBase(fader));
+		public ConfigController(ColorFader root) {
+			super(root);
 		}
-		
-		private void updateSelection(RGBWFader fader) {
-			this.getFaderBase(fader).setTarget(fader.getRoot().getCurrentSelection());
-			this.updateDisplay(this.getFaderBase(fader));
-		}
-		
-		private void updateDisplay(FaderBase base) {
-			this.labelSelection.setText(base.getTarget() == null ? "Nothing" : base.getTarget().toString());
-		}
-		
-		private void updateColorField(RGBWFader fader) {
-			this.textColorName.setText(fader.getColorName(this.getColorIndex()));
-		}
-		
-		private int getColorIndex() {
-			return this.boxColorNames.getSelectionModel().getSelectedIndex();
-		}
-		
-		private FaderBase getFaderBase(RGBWFader fader) {
-			if (this.boxColors.getSelectionModel().getSelectedItem().equals("Red")) {
-				return fader.redBase();
-			} else if (this.boxColors.getSelectionModel().getSelectedItem().equals("Green")) {
-				return fader.greenBase();
-			} else if (this.boxColors.getSelectionModel().getSelectedItem().equals("Blue")) {
-				return fader.blueBase();
-			} else if (this.boxColors.getSelectionModel().getSelectedItem().equals("White")) {
-				return fader.whiteBase();
-			} else {
-				return null;
-			}
+
+		@Override
+		protected void setupColorBox(ComboBox<String> boxColors) {
+			boxColors.getItems().add("Red");
+			boxColors.getItems().add("Green");
+			boxColors.getItems().add("Blue");
+			boxColors.getItems().add("White");
 		}
 		
 	}

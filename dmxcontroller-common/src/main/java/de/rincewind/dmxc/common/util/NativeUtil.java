@@ -10,7 +10,6 @@ import java.io.OutputStream;
 public class NativeUtil {
 
 	public static void loadLibraryFromJar(String path) throws IOException {
-
 		if (!path.startsWith("/")) {
 			throw new IllegalArgumentException("The path has to be absolute (start with '/').");
 		}
@@ -22,12 +21,11 @@ public class NativeUtil {
 		// Split filename to prexif and suffix (extension)
 		String prefix = "";
 		String suffix = null;
+		
 		if (filename != null) {
 			parts = filename.split("\\.", 2);
 			prefix = parts[0];
 			suffix = parts.length > 1 ? "." + parts[parts.length - 1] : null; // Thanks,
-																				// davs!
-																				// :-)
 		}
 
 		// Check if the filename is okay
@@ -49,13 +47,14 @@ public class NativeUtil {
 
 		// Open and check input stream
 		InputStream is = NativeUtil.class.getResourceAsStream(path);
+		
 		if (is == null) {
 			throw new FileNotFoundException("File " + path + " was not found inside JAR.");
 		}
-
 		// Open output stream and copy data between source file in JAR and the
 		// temporary file
 		OutputStream os = new FileOutputStream(temp);
+		
 		try {
 			while ((readBytes = is.read(buffer)) != -1) {
 				os.write(buffer, 0, readBytes);

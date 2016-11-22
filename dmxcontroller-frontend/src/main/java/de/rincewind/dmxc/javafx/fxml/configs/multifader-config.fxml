@@ -15,7 +15,7 @@
 			</styleClass>
 		</TextField>
 		<Region styleClass="region" VBox.vgrow="ALWAYS" />
-      <ComboBox fx:id="boxSubmasters" prefWidth="150.0">
+      <ComboBox fx:id="boxFaders" prefWidth="150.0">
          <styleClass>
             <String fx:value="basic-element" />
             <String fx:value="basic-combobox" />
@@ -48,6 +48,6 @@
 	</children>
    <stylesheets>
       <URL value="@../../css/basics.css" />
-      <URL value="@../../css/configs/submasterfader-config.css" />
+      <URL value="@../../css/configs/multifader-config.css" />
    </stylesheets>
 </fx:root>

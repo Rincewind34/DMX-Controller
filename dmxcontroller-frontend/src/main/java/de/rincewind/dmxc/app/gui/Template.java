@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import de.rincewind.dmxc.app.api.Effect;
 import de.rincewind.dmxc.app.api.Fadeable;
 import de.rincewind.dmxc.app.api.Submaster;
 import de.rincewind.dmxc.app.gui.util.DragDropHandler;
@@ -55,7 +56,13 @@ public class Template extends VBox {
 	private Button buttonRefreshSubmasters;
 	
 	@FXML
+	private Button buttonRefreshEffects;
+	
+	@FXML
 	private ListView<Submaster> listSubmasters;
+	
+	@FXML
+	private ListView<Effect> listEffects;
 
 	// ==== Number Pad ==== //
 
@@ -122,14 +129,14 @@ public class Template extends VBox {
 
 		this.contentScrollPane.setFitToHeight(true);
 		this.contentScrollPane.setFitToWidth(true);
-		this.displayContent = TemplateContent.CONTROLER;
+		this.displayContent = TemplateContent.CONTROLLER;
 
 		this.buttonConfig.setOnAction((event) -> {
 			this.switchDisplay(TemplateContent.CONFIG);
 		});
 		
 		this.buttonHome.setOnAction((event) -> {
-			this.switchDisplay(TemplateContent.CONTROLER);
+			this.switchDisplay(TemplateContent.CONTROLLER);
 		});
 		
 		this.buttonDrag.setOnAction((event) -> {
@@ -138,6 +145,10 @@ public class Template extends VBox {
 		
 		this.buttonRefreshSubmasters.setOnAction((event) -> {
 			this.fillSubmasters();
+		});
+		
+		this.buttonRefreshEffects.setOnAction((event) -> {
+			this.fillEffects();
 		});
 
 		this.root.getChildren().remove(this.selectorTabPane);
@@ -218,7 +229,13 @@ public class Template extends VBox {
 			Tab selected = this.selectorTabPane.getSelectionModel().getSelectedItem();
 			
 			if (((Pane) selected.getContent()).getChildren().get(0) instanceof ListView<?>) {
-				return this.listSubmasters.getSelectionModel().getSelectedItem();
+				ListView<?> list = (ListView<?>) ((Pane) selected.getContent()).getChildren().get(0);
+				
+				if (list == this.listSubmasters) {
+					return this.listSubmasters.getSelectionModel().getSelectedItem();
+				} else {
+					return this.listEffects.getSelectionModel().getSelectedItem();
+				}
 			} else {
 				return this.numberPad.getSelection();
 			}
@@ -248,6 +265,14 @@ public class Template extends VBox {
 		}
 	}
 	
+	private void fillEffects() {
+		this.listEffects.getItems().clear();
+		
+		for (Effect effect : Effect.getAll()) {
+			this.listEffects.getItems().add(effect);
+		}
+	}
+	
 	private void switchDisplay(TemplateContent content) {
 		if (this.displayContent == content) {
 			return;
@@ -268,6 +293,7 @@ public class Template extends VBox {
 		} else if (this.displayContent == TemplateContent.CONFIG) {
 			this.root.getChildren().add(0, this.selectorTabPane);
 			this.fillSubmasters();
+			this.fillEffects();
 		}
 	}
 	

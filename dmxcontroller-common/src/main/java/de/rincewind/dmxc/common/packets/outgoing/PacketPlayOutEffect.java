@@ -4,18 +4,18 @@ import de.rincewind.dmxc.common.util.ByteUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class PacketPlayOutSubmaster extends PacketPlayOut {
+public class PacketPlayOutEffect extends PacketPlayOut {
 
 	private Action action;
 
-	private String submaster;
+	private String effect;
 
-	public PacketPlayOutSubmaster() {
+	public PacketPlayOutEffect() {
 
 	}
 
-	public PacketPlayOutSubmaster(String submaster, Action action) {
-		this.submaster = submaster;
+	public PacketPlayOutEffect(String effect, Action action) {
+		this.effect = effect;
 		this.action = action;
 	}
 
@@ -23,18 +23,18 @@ public class PacketPlayOutSubmaster extends PacketPlayOut {
 	public ByteBuf encode() {
 		ByteBuf buffer = Unpooled.buffer();
 		buffer.writeByte(this.action.getId());
-		ByteUtil.writeString(buffer, this.submaster);
+		ByteUtil.writeString(buffer, this.effect);
 		return buffer;
 	}
 
 	@Override
 	public void decode(ByteBuf buffer) {
 		this.action = Action.fromId(buffer.readByte());
-		this.submaster = ByteUtil.readString(buffer);
+		this.effect = ByteUtil.readString(buffer);
 	}
 
-	public void setSubmaster(String submaster) {
-		this.submaster = submaster;
+	public void setEffect(String effect) {
+		this.effect = effect;
 	}
 
 	public void setAction(Action action) {
@@ -45,11 +45,8 @@ public class PacketPlayOutSubmaster extends PacketPlayOut {
 		return this.action;
 	}
 
-	public String getSubmaster() {
-		return this.submaster;
+	public String getEffect() {
+		return this.effect;
 	}
 	
-
-	
-
 }

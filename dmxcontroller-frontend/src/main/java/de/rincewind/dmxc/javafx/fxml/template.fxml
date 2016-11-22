@@ -11,7 +11,7 @@
 			<children>
 				<TabPane fx:id="selectorTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
 					<tabs>
-						<Tab text="Channel">
+						<Tab text="Channels">
 							<content>
 								<VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
 									<children>
@@ -141,11 +141,11 @@
 								</VBox>
 							</content>
 						</Tab>
-						<Tab text="Submaster">
+						<Tab text="Submasters">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="tab-content">
                            <children>
-                              <ListView fx:id="listSubmasters" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <ListView fx:id="listSubmasters" prefHeight="200.0" prefWidth="200.0">
                                  <styleClass>
                                     <String fx:value="basic-element" />
                                     <String fx:value="basic-list" />
@@ -160,6 +160,26 @@
                            </children>
                         </VBox>
                      </content></Tab>
+                  <Tab text="Effects">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="tab-content">
+                           <children>
+                              <ListView fx:id="listEffects" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <styleClass>
+                                    <String fx:value="basic-element" />
+                                    <String fx:value="basic-list" />
+                                 </styleClass>
+                              </ListView>
+                              <Button fx:id="buttonRefreshEffects" mnemonicParsing="false" prefWidth="1000.0" text="Refresh">
+                                 <styleClass>
+                                    <String fx:value="basic-element" />
+                                    <String fx:value="basic-button" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
 					</tabs>
 				</TabPane>
 				<Region prefHeight="200.0" prefWidth="200.0" styleClass="region" />

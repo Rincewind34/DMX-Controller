@@ -2,7 +2,7 @@ package de.rincewind.dmxc.app.gui;
 
 public enum TemplateContent {
 	
-	CONTROLER,
+	CONTROLLER,
 	CONFIG,
 	DRAG_DROP;
 	

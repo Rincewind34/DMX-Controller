@@ -1,19 +1,20 @@
 package de.rincewind.dmxc.app.network.listeners;
 
-import de.rincewind.dmxc.app.api.Submaster;
+import de.rincewind.dmxc.app.api.Effect;
 import de.rincewind.dmxc.common.packets.PacketHandler;
 import de.rincewind.dmxc.common.packets.PacketListener;
 import de.rincewind.dmxc.common.packets.outgoing.Action;
-import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
+import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutEffect;
 
-public class ListenerSubmaster implements PacketListener {
+public class ListenerEffect implements PacketListener {
 
 	@PacketHandler
-	public void onSubmaster(PacketPlayOutSubmaster packet) {
+	public void onSubmaster(PacketPlayOutEffect packet) {
 		if (packet.getAction() == Action.ADD) {
-			Submaster.create(packet.getSubmaster());
+			Effect.create(packet.getEffect());
 		} else if (packet.getAction() == Action.REMOVE) {
-			Submaster.get(packet.getSubmaster()).delete();
+			Effect.get(packet.getEffect()).delete();
 		}
 	}
+	
 }

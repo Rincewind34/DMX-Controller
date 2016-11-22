@@ -11,8 +11,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import de.rincewind.dmxc.common.Console;
+import de.rincewind.dmxc.common.packets.outgoing.Action;
+import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutEffect;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
-import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster.Action;
 import de.rincewind.dmxc.common.util.JsonUtil;
 import de.rincewind.dmxc.system.Main;
 import de.rincewind.dmxc.system.UpdateTask;
@@ -23,6 +24,7 @@ public class DMXEnvironment {
 	private MergingMethod method;
 
 	private List<Submaster> submasters;
+	private List<Effect> effects;
 
 	private Map<Short, DMXData> addresses;
 	
@@ -36,6 +38,7 @@ public class DMXEnvironment {
 		this.master = new DMXData();
 		this.addresses = new HashMap<>();
 		this.submasters = new ArrayList<>();
+		this.effects = new ArrayList<>();
 		
 		for (short i = 1; i <= 512; i++) {
 			this.addresses.put(i, new DMXData());
@@ -55,11 +58,11 @@ public class DMXEnvironment {
 	
 	@SuppressWarnings("deprecation")
 	public void destroy() {
-		Console.println("Closing interface");
-		this.dmxInterface.closeInterface();
-		
 		Console.println("Stoping update thread");
 		this.updateThread.stop();
+		
+		Console.println("Closing interface");
+		this.dmxInterface.closeInterface();
 	}
 	
 	public void setMergingMethod(MergingMethod method) {
@@ -87,16 +90,26 @@ public class DMXEnvironment {
 			submaster.removeClient(client);
 		}
 		
+		for (Effect effect : this.effects) {
+			effect.removeClient(client);
+		}
+		
 		this.master.removeClient(client);
 	}
 	
 	public void deleteSubmaster(Submaster submaster) {
-		// TODO push values to universe
-		
 		this.submasters.remove(submaster);
 		
 		for (Client client : Main.server().getClients()) {
 			client.sendPacket(new PacketPlayOutSubmaster(submaster.getName(), Action.REMOVE));
+		}
+	}
+	
+	public void deleteEffect(Effect effect) {
+		this.effects.remove(effect);
+		
+		for (Client client : Main.server().getClients()) {
+			client.sendPacket(new PacketPlayOutEffect(effect.getName(), Action.REMOVE));
 		}
 	}
 	
@@ -127,6 +140,41 @@ public class DMXEnvironment {
 		}
 		
 		JsonUtil.toJson(file, array);
+	}
+	
+	public void loadEffects(File file) {
+		JsonArray array = JsonUtil.fromJson(file, JsonArray.class);
+		
+		if (array == null) {
+			return;
+		}
+		
+		for (int i = 0; i < array.size(); i++) {
+			JsonObject object = array.get(i).getAsJsonObject();
+			Effect effect = new Effect(object);
+			
+			if (this.getEffect(effect.getName()) != null) {
+				Console.println("Skiping effect " + effect.getName() + " in loading: already exists");
+			}
+			
+			this.registerEffect(effect);
+		}
+	}
+	
+	public void saveEffects(File file) {
+		JsonArray array = new JsonArray();
+		
+		for (Effect effect : this.effects) {
+			array.add(effect.serialize());
+		}
+		
+		JsonUtil.toJson(file, array);
+	}
+	
+	public void updateChangedValues() {
+		for (short dmxAddress = 1; dmxAddress <= 512; dmxAddress++) {
+			this.dmxInterface.sendData(dmxAddress, this.getCurrentValue(dmxAddress));
+		}
 	}
 	
 	public boolean isSet(short dmxAddress, InputType type) {
@@ -196,6 +244,26 @@ public class DMXEnvironment {
 		return null;
 	}
 	
+	public Effect newEffect(String name) {
+		if (this.getEffect(name) != null) {
+			throw new RuntimeException("The effect already exists!");
+		}
+		
+		Effect effect = new Effect(name);
+		this.registerEffect(effect);
+		return effect;
+	}
+	
+	public Effect getEffect(String name) {
+		for (Effect effect : this.effects) {
+			if (effect.getName().equals(name)) {
+				return effect;
+			}
+		}
+
+		return null;
+	}
+	
 	public DMXInterface getDMXInterface() {
 		return this.dmxInterface;
 	}
@@ -216,10 +284,20 @@ public class DMXEnvironment {
 		return result;
 	}
 	
-	public void updateChangedValues() {
-		for (short dmxAddress = 1; dmxAddress <= 512; dmxAddress++) {
-			this.dmxInterface.sendData(dmxAddress, this.getCurrentValue(dmxAddress, this.getCurrentType(dmxAddress)));
+	public List<Effect> getEffects() {
+		return Collections.unmodifiableList(this.effects);
+	}
+	
+	public List<Effect> getEffects(short dmxAddress) {
+		List<Effect> result = new ArrayList<>();
+		
+		for (Effect effect : this.effects) {
+			if (effect.getCurrentValues().containsKey(dmxAddress)) {
+				result.add(effect);
+			}
 		}
+		
+		return result;
 	}
 	
 	private Short getFixedValue(short dmxAddress, InputType type) {
@@ -232,11 +310,15 @@ public class DMXEnvironment {
 				return null;
 			}
 			
-			short current = submaster.getCurrentValue().shortValue();
-			double prercent = current / 255.0D;
-			return (short) Math.round(submaster.getTargetValues().get(dmxAddress) * prercent);
+			return submaster.getCurrentValues().get(dmxAddress);
 		} else if (type == InputType.EFFECT) {
-			return null;
+			Effect effect = (Effect) this.getCurrentData(dmxAddress, type);
+			
+			if (effect == null || !effect.isRunning()) {
+				return null;
+			}
+			
+			return effect.getCurrentValues().get(dmxAddress);
 		} else if (type == InputType.NONE) {
 			return null;
 		} else {
@@ -252,7 +334,7 @@ public class DMXEnvironment {
 			Submaster submaster = null;
 			
 			for (Submaster target : this.getSubmasters(dmxAddress)) {
-				Short value = target.getCurrentValue();
+				Short value = target.getCurrentValues().get(dmxAddress);
 				
 				if (value != null && value > current) {
 					current = value;
@@ -262,7 +344,19 @@ public class DMXEnvironment {
 			
 			return submaster;
 		} else if (type == InputType.EFFECT) {
-			return null;
+			short current = -1;
+			Effect effect = null;
+			
+			for (Effect target : this.getEffects(dmxAddress)) {
+				Short value = target.getCurrentValues().get(dmxAddress);
+				
+				if (value != null && value > current) {
+					current = value;
+					effect = target;
+				}
+			}
+			
+			return effect;
 		} else if (type == InputType.NONE) {
 			return null;
 		} else {
@@ -278,6 +372,16 @@ public class DMXEnvironment {
 		}
 		
 		this.submasters.add(submaster);
+	}
+	
+	private void registerEffect(Effect effect) {
+		if (Main.server() != null) {
+			for (Client client : Main.server().getClients()) {
+				client.sendPacket(new PacketPlayOutEffect(effect.getName(), Action.ADD));
+			}
+		}
+		
+		this.effects.add(effect);
 	}
 	
 	private short convert(Short input) {

@@ -81,7 +81,6 @@ public class Submaster extends DMXData {
 			array.add(object);
 		}
 		
-		
 		root.addProperty("name", this.name);
 		root.add("targets", array);
 		return root;
@@ -89,6 +88,14 @@ public class Submaster extends DMXData {
 	
 	public Map<Short, Short> getTargetValues() {
 		return Collections.unmodifiableMap(this.targetValues);
+	}
+	
+	public Map<Short, Short> getCurrentValues() {
+		if (this.getCurrentValue() == null) {
+			return Collections.unmodifiableMap(new HashMap<>());
+		} else {
+			return Collections.unmodifiableMap(DMXData.multiply(this.getCurrentPercent(), this.getTargetValues()));
+		}
 	}
 	
 }

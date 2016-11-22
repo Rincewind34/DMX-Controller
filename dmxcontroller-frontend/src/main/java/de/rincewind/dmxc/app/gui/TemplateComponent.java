@@ -41,10 +41,10 @@ public abstract class TemplateComponent extends VBox {
 			component = new RGBFader(data);
 		} else if (type.equals("rgbwfader")) {
 			component = new RGBWFader(data);
-		} else if (type.equals("scenetool")) {
-			component = new SceneTool(); // TODO
 		} else if (type.equals("submasterfader")) {
 			component = new SubmasterFader(data);
+		} else if (type.equals("effectfader")) {
+			component = new EffectFader(data);
 		} else {
 			return null;
 		}
@@ -93,7 +93,7 @@ public abstract class TemplateComponent extends VBox {
 		
 		Pane pane = null;
 		
-		if (content == TemplateContent.CONTROLER) {
+		if (content == TemplateContent.CONTROLLER) {
 			pane = this.getToolPane();
 		} else if (content == TemplateContent.CONFIG) {
 			pane = this.getConfigPane();

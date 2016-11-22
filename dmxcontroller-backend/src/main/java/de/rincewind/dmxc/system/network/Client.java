@@ -1,12 +1,14 @@
 package de.rincewind.dmxc.system.network;
 
+import de.rincewind.dmxc.common.packets.outgoing.Action;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOut;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutAccess;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutAccess.LoginError;
+import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutEffect;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
-import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster.Action;
 import de.rincewind.dmxc.system.Account;
 import de.rincewind.dmxc.system.Main;
+import de.rincewind.dmxc.system.environment.Effect;
 import de.rincewind.dmxc.system.environment.Submaster;
 import io.netty.channel.Channel;
 
@@ -51,6 +53,10 @@ public class Client {
 		
 		for (Submaster submaster : Main.environment().getSubmasters()) {
 			this.sendPacket(new PacketPlayOutSubmaster(submaster.getName(), Action.ADD));
+		}
+		
+		for (Effect effect : Main.environment().getEffects()) {
+			this.sendPacket(new PacketPlayOutEffect(effect.getName(), Action.ADD));
 		}
 	}
 	

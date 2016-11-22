@@ -10,25 +10,25 @@
 	<children>
 		<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" styleClass="button-container">
 			<children>
-            <ToggleButton fx:id="buttonSub1" mnemonicParsing="false">
+            <ToggleButton fx:id="buttonFader1" mnemonicParsing="false">
                <styleClass>
                   <String fx:value="basic-element" />
                   <String fx:value="basic-toggle-button" />
                </styleClass>
             </ToggleButton>
-            <ToggleButton fx:id="buttonSub2" mnemonicParsing="false">
+            <ToggleButton fx:id="buttonFader2" mnemonicParsing="false">
                <styleClass>
                   <String fx:value="basic-element" />
                   <String fx:value="basic-toggle-button" />
                </styleClass>
             </ToggleButton>
-            <ToggleButton fx:id="buttonSub3" mnemonicParsing="false">
+            <ToggleButton fx:id="buttonFader3" mnemonicParsing="false">
                <styleClass>
                   <String fx:value="basic-element" />
                   <String fx:value="basic-toggle-button" />
                </styleClass>
             </ToggleButton>
-            <ToggleButton fx:id="buttonSub4" mnemonicParsing="false">
+            <ToggleButton fx:id="buttonFader4" mnemonicParsing="false">
                <styleClass>
                   <String fx:value="basic-element" />
                   <String fx:value="basic-toggle-button" />
@@ -73,10 +73,10 @@
 	<stylesheets>
 		<URL value="@../css/basics.css" />
 		<URL value="@../css/fader.css" />
-		<URL value="@../css/submasterfader.css" />
+      <URL value="@../css/multifader.css" />
 	</stylesheets>
-	<styleClass>
-		<String fx:value="basic-container" />
-		<String fx:value="submaster-fader" />
-	</styleClass>
+   <styleClass>
+      <String fx:value="basic-container" />
+      <String fx:value="multi-fader" />
+   </styleClass>
 </fx:root>

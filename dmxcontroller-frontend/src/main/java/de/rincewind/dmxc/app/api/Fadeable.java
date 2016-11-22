@@ -22,6 +22,8 @@ public abstract class Fadeable {
 			fadeable = new ChannelSelection(data);
 		} else if (type.equals("submaster")) {
 			fadeable = Submaster.get(data);
+		} else if (type.equals("effect")) {
+			fadeable = Effect.get(data);
 		}
 		
 		return fadeable;

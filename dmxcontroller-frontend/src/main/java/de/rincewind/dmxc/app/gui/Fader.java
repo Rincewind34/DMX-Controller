@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 
 import de.rincewind.dmxc.app.api.Channel;
 import de.rincewind.dmxc.app.api.ChannelSelection;
+import de.rincewind.dmxc.app.api.Effect;
 import de.rincewind.dmxc.app.api.Fadeable;
 import de.rincewind.dmxc.app.api.Submaster;
 import de.rincewind.dmxc.app.gui.util.Color;
@@ -67,6 +68,8 @@ public class Fader extends TemplateComponent {
 			TemplateComponent.setBackgroundColor(this.toolPane, Fader.COLOR_CHANNEL);
 		} else if (this.faderBase().getTarget() instanceof Submaster) {
 			TemplateComponent.setBackgroundColor(this.toolPane, Fader.COLOR_SUBMASTER);
+		} else if (this.faderBase().getTarget() instanceof Effect) {
+			TemplateComponent.setBackgroundColor(this.toolPane, Fader.COLOR_EFFECT);
 		}
 		
 		this.faderBase().updateSlider();
