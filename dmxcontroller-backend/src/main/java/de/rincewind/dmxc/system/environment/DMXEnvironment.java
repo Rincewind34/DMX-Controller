@@ -11,7 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import de.rincewind.dmxc.common.Console;
-import de.rincewind.dmxc.common.packets.outgoing.Action;
+import de.rincewind.dmxc.common.packets.Action;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutEffect;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
 import de.rincewind.dmxc.common.util.JsonUtil;
@@ -28,6 +28,8 @@ public class DMXEnvironment {
 
 	private Map<Short, DMXData> addresses;
 	
+	private Show show;
+	
 	private DMXData master;
 	private DMXInterface dmxInterface;
 	
@@ -35,6 +37,7 @@ public class DMXEnvironment {
 	
 	public DMXEnvironment(MergingMethod method) {
 		this.method = method;
+		this.show = new Show();
 		this.master = new DMXData();
 		this.addresses = new HashMap<>();
 		this.submasters = new ArrayList<>();
@@ -192,6 +195,8 @@ public class DMXEnvironment {
 			return InputType.SUBMASTER;
 		} else if (this.isSet(dmxAddress, InputType.EFFECT)) {
 			return InputType.EFFECT;
+		} else if (this.isSet(dmxAddress, InputType.SHOW)) {
+			return InputType.SHOW;
 		} else {
 			return InputType.NONE;
 		}
@@ -264,6 +269,10 @@ public class DMXEnvironment {
 		return null;
 	}
 	
+	public Show getShow() {
+		return this.show;
+	}
+	
 	public DMXInterface getDMXInterface() {
 		return this.dmxInterface;
 	}
@@ -319,6 +328,12 @@ public class DMXEnvironment {
 			}
 			
 			return effect.getCurrentValues().get(dmxAddress);
+		} else if (type == InputType.SHOW) {
+			if (!this.show.isRunning()) {
+				return null;
+			} else {
+				return this.show.getCurrentValues().get(dmxAddress);
+			}
 		} else if (type == InputType.NONE) {
 			return null;
 		} else {
@@ -357,6 +372,8 @@ public class DMXEnvironment {
 			}
 			
 			return effect;
+		} else if (type == InputType.SHOW) {
+			return this.show;
 		} else if (type == InputType.NONE) {
 			return null;
 		} else {

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -45,12 +46,21 @@ public abstract class TemplateComponent extends VBox {
 			component = new SubmasterFader(data);
 		} else if (type.equals("effectfader")) {
 			component = new EffectFader(data);
+		} else if (type.equals("showcontroller")) {
+			component = new ShowController();
 		} else {
 			return null;
 		}
 		
 		component.setCaption(object.get("caption").getAsString());
 		return component;
+	}
+	
+	public static ConfigDefaultController loadConfigController(TemplateComponent component) {
+		ConfigDefaultController configPane = new ConfigDefaultController();
+		FileLoader.loadFXML(configPane, "configs/default-config.fxml");
+		configPane.init(component);
+		return configPane;
 	}
 	
 	protected static void setBackgroundColor(Pane pane, Color color) {
@@ -81,6 +91,8 @@ public abstract class TemplateComponent extends VBox {
 	
 	public abstract String getType();
 	
+	public abstract TemplateComponent newOne();
+	
 	public void update() {
 		
 	}
@@ -98,7 +110,10 @@ public abstract class TemplateComponent extends VBox {
 		} else if (content == TemplateContent.CONFIG) {
 			pane = this.getConfigPane();
 		} else if (content == TemplateContent.DRAG_DROP) {
-			pane = DragDropNode.create(this.image);
+			DragDropNode node = DragDropNode.create(this.image);
+			Tooltip tooltip = new Tooltip(this.getTooltip());
+			Tooltip.install(node.imageView, tooltip);
+			pane = node;
 		}
 		
 		if (pane != null) {
@@ -132,6 +147,8 @@ public abstract class TemplateComponent extends VBox {
 		object.add("data", this.serializeSimplified());
 		return object;
 	}
+	
+	protected abstract String getTooltip();
 	
 	protected abstract JsonElement serializeSimplified();
 	
@@ -170,6 +187,17 @@ public abstract class TemplateComponent extends VBox {
 		this.getChildren().remove(this.currentContent);
 	}
 	
+	
+	public static class ConfigDefaultController extends VBox {
+		
+		@FXML
+		private TextField textCaption;
+		
+		private void init(TemplateComponent component) {
+			component.bindCaptionField(this.textCaption);
+		}
+		
+	}
 	
 	private static class DragDropNode extends VBox {
 		

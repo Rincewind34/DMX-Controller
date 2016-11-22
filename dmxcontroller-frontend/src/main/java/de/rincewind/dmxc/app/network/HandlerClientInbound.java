@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import de.rincewind.dmxc.app.Main;
+import de.rincewind.dmxc.app.api.Effect;
+import de.rincewind.dmxc.app.api.Show;
 import de.rincewind.dmxc.app.api.Submaster;
 import de.rincewind.dmxc.common.Console;
 import de.rincewind.dmxc.common.Debug;
@@ -35,6 +37,8 @@ public class HandlerClientInbound extends HandlerInbound {
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		Submaster.deleteAll();
+		Effect.deleteAll();
+		Show.instance().reset();
 		Main.hideMainWindow();
 	}
 	

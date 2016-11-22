@@ -78,11 +78,13 @@ public class NumberPadInterpreter {
 		this.buttonBack.setOnAction((event) -> {
 			this.display.setText(this.display.getText().substring(0, this.display.getText().length() - 1));
 			this.updateButtons();
+			this.fireAction();
 		});
 		
 		this.buttonClear.setOnAction((event) -> {
 			this.display.setText("");
 			this.updateButtons();
+			this.fireAction();
 		});
 		
 		this.updateButtons();
@@ -95,7 +97,9 @@ public class NumberPadInterpreter {
 	public Fadeable getSelection() {
 		ChannelSelection selection = this.getSelectedChannels();
 		
-		if (selection.size() == 1) {
+		if (selection.size() == 0) {
+			return null;
+		} else if (selection.size() == 1) {
 			return selection.toChannel();
 		} else {
 			return selection;

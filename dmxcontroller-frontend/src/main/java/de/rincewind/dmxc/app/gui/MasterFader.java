@@ -11,7 +11,6 @@ import de.rincewind.dmxc.app.gui.util.Color;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,7 +18,7 @@ import javafx.scene.layout.VBox;
 public class MasterFader extends TemplateComponent {
 	
 	private ToolController toolPane;
-	private ConfigController configPane;
+	private ConfigDefaultController configPane;
 	
 	public MasterFader() {
 		this.setCaption("Master");
@@ -27,9 +26,7 @@ public class MasterFader extends TemplateComponent {
 		FileLoader.loadFXML(this.toolPane, "masterfader.fxml");
 		this.toolPane.init();
 		
-		this.configPane = new ConfigController();
-		FileLoader.loadFXML(this.configPane, "configs/masterfader-config.fxml");
-		this.configPane.init(this);
+		this.configPane = TemplateComponent.loadConfigController(this);
 		
 		TemplateComponent.setBackgroundColor(this.toolPane, new Color(0x46, 0x00, 0x00));
 	}
@@ -37,6 +34,11 @@ public class MasterFader extends TemplateComponent {
 	@Override
 	public String getType() {
 		return "masterfader";
+	}
+	
+	@Override
+	public TemplateComponent newOne() {
+		return new MasterFader();
 	}
 	
 	@Override
@@ -61,6 +63,11 @@ public class MasterFader extends TemplateComponent {
 	}
 	
 	@Override
+	protected String getTooltip() {
+		return "Master-Fader\n\nThe master fader allows you to reduce the\nintensity of your hole output.";
+	}
+	
+	@Override
 	protected JsonElement serializeSimplified() {
 		return JsonNull.INSTANCE;
 	}
@@ -77,7 +84,7 @@ public class MasterFader extends TemplateComponent {
 	
 	@Override
 	protected InputStream getDragDropImageStream() {
-		return FileLoader.getImageStream("faders");
+		return FileLoader.getImageStream("master");
 	}
 	
 	
@@ -142,17 +149,6 @@ public class MasterFader extends TemplateComponent {
 			}
 			
 			return (short) ((this.fader.getValue() / 100.0D) * 255);
-		}
-		
-	}
-	
-	public static class ConfigController extends VBox {
-		
-		@FXML
-		private TextField textCaption;
-		
-		private void init(MasterFader fader) {
-			fader.bindCaptionField(this.textCaption);
 		}
 		
 	}

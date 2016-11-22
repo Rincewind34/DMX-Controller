@@ -24,10 +24,20 @@ public class SubmasterFader extends MultiFader<Submaster> {
 	public String getType() {
 		return "submasterfader";
 	}
+	
+	@Override
+	public TemplateComponent newOne() {
+		return new SubmasterFader();
+	}
 
 	@Override
 	protected Submaster[] newArray(int size) {
 		return new Submaster[size];
+	}
+	
+	@Override
+	protected String getTooltip() {
+		return "Submasters\n\nThis tool allows you to control multiple\nsubmasters on one panel.";
 	}
 	
 }

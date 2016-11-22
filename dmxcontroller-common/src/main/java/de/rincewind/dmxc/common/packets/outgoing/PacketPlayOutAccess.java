@@ -58,10 +58,10 @@ public class PacketPlayOutAccess extends PacketPlayOut {
 	
 	public static enum LoginError {
 		
-		INVALID_USERNAME(0, "Der Nutzername existiert nicht!"),
-		USERNAME(1, "Der Nutzername wird bereits benutzt!"),
-		AUTH_TIME_ELAPSED(2, "Die Verbindung hat die Zeit überschritten!"),
-		PASSWORD(3, "Das Passwort ist falsch!");
+		INVALID_USERNAME(0, "The given username does not exist!"),
+		USERNAME(1, "The given username is already logged in!"),
+		AUTH_TIME_ELAPSED(2, "The authentication time has elapsed!"),
+		PASSWORD(3, "The password is wrong!");
 		
 		private byte id;
 		private String errorMessage;

@@ -7,7 +7,8 @@ public enum InputType {
 	NONE(""),
 	CHANNEL(Console.ANSI_YELLOW),
 	SUBMASTER(Console.ANSI_BLUE),
-	EFFECT(Console.ANSI_GREEN);
+	EFFECT(Console.ANSI_GREEN),
+	SHOW(Console.ANSI_MAGENTA);
 	
 	private String color;
 	

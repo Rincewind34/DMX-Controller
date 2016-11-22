@@ -24,7 +24,17 @@ public class EffectFader extends MultiFader<Effect> {
 	public String getType() {
 		return "effectfader";
 	}
-
+	
+	@Override
+	public TemplateComponent newOne() {
+		return new EffectFader();
+	}
+	
+	@Override
+	protected String getTooltip() {
+		return "Effects\n\nThis tool allows you to control multiple\neffects on one panel.";
+	}
+	
 	@Override
 	protected Effect[] newArray(int size) {
 		return new Effect[size];

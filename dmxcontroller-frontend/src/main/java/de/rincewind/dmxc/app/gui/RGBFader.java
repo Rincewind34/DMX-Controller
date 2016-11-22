@@ -28,6 +28,11 @@ public class RGBFader extends ColorFader {
 		return "rgbfader";
 	}
 	
+	@Override
+	public TemplateComponent newOne() {
+		return new RGBFader();
+	}
+	
 	public FaderBase redBase() {
 		return this.getFaderBase(0);
 	}
@@ -38,6 +43,11 @@ public class RGBFader extends ColorFader {
 	
 	public FaderBase blueBase() {
 		return this.getFaderBase(2);
+	}
+	
+	@Override
+	protected String getTooltip() {
+		return "RGB-Fader\n\nThis fader group provides three faders at\nonce (red, green and blue).";
 	}
 	
 	@Override

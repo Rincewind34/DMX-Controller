@@ -65,7 +65,7 @@ public class Scene {
 			return (short) Math.round(valueTo + (percent * diff));
 		} else {
 			short diff = (short) (valueTo - valueFrom);
-			return (short) Math.round(diff + (percent * valueFrom));
+			return (short) Math.round(valueFrom + (percent * diff));
 		}
 	}
 	
@@ -101,6 +101,11 @@ public class Scene {
 		
 		this.fadeIn = root.get("fadeIn").getAsInt();
 		this.stay = root.get("stay").getAsInt();
+	}
+	
+	@Override
+	public String toString() {
+		return "{name: " + this.name + "; targets: " + this.targetValues.toString() + "}";
 	}
 
 	public void setFadeIn(int fadeIn) {

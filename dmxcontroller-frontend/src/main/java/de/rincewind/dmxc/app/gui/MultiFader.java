@@ -78,12 +78,12 @@ public abstract class MultiFader<T extends Fadeable> extends TemplateComponent {
 	
 	@Override
 	protected Pane getConfigPane() {
-		return this.getConfigPane();
+		return this.configPane;
 	}
 	
 	@Override
 	protected InputStream getDragDropImageStream() {
-		return FileLoader.getImageStream("faders");
+		return FileLoader.getImageStream("spotlights");
 	}
 	
 	@Override
@@ -222,11 +222,7 @@ public abstract class MultiFader<T extends Fadeable> extends TemplateComponent {
 		}
 		
 		private void updateDisable() {
-			boolean value = this.current == -1;
-			
-			this.fader.setDisable(value);
-			this.buttonFlash.setDisable(value);
-			this.buttonPushZero.setDisable(value);
+			this.base.setDisabled(this.current == -1);
 			
 			for (int i = 0; i < 4; i++) {
 				this.getButton(i).setDisable(this.fadeables[i] == null);

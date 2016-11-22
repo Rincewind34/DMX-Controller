@@ -7,10 +7,12 @@ import de.rincewind.dmxc.common.util.FileUtil;
 import de.rincewind.dmxc.system.commands.CommandAccounts;
 import de.rincewind.dmxc.system.commands.CommandDMXValues;
 import de.rincewind.dmxc.system.commands.CommandEffect;
+import de.rincewind.dmxc.system.commands.CommandShow;
 import de.rincewind.dmxc.system.commands.CommandStop;
 import de.rincewind.dmxc.system.commands.CommandSubmaster;
 import de.rincewind.dmxc.system.environment.DMXEnvironment;
 import de.rincewind.dmxc.system.environment.MergingMethod;
+import de.rincewind.dmxc.system.environment.SceneRegistry;
 import de.rincewind.dmxc.system.network.Server;
 
 public class Main {
@@ -55,12 +57,18 @@ public class Main {
 			Console.registerCommand("dmxvalues", new CommandDMXValues());
 			Console.registerCommand("submaster", new CommandSubmaster());
 			Console.registerCommand("effect", new CommandEffect());
+			Console.registerCommand("show", new CommandShow());
 			Console.startConsole();
 		}).start();
 		
 		Main.server = new Server();
 		Main.server.setPort(2345);
 		Main.server.connect();
+		
+		Main.environment.getShow().addScene(SceneRegistry.getScene("red"));
+		Main.environment.getShow().addScene(SceneRegistry.getScene("black"));
+		Main.environment.getShow().addScene(SceneRegistry.getScene("green"));
+		Main.environment.getShow().addDimmer((short) 1);
 	}
 	
 	public static Server server() {

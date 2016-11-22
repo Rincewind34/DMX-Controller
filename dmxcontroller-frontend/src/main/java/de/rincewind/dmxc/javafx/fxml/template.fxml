@@ -13,7 +13,7 @@
 					<tabs>
 						<Tab text="Channels">
 							<content>
-								<VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+								<VBox alignment="CENTER">
 									<children>
 										<Label fx:id="display">
 											<styleClass>
@@ -142,44 +142,45 @@
 							</content>
 						</Tab>
 						<Tab text="Submasters">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="tab-content">
-                           <children>
-                              <ListView fx:id="listSubmasters" prefHeight="200.0" prefWidth="200.0">
-                                 <styleClass>
-                                    <String fx:value="basic-element" />
-                                    <String fx:value="basic-list" />
-                                 </styleClass>
-                              </ListView>
-                              <Button fx:id="buttonRefreshSubmasters" mnemonicParsing="false" prefWidth="1000.0" text="Refresh">
-                                 <styleClass>
-                                    <String fx:value="basic-element" />
-                                    <String fx:value="basic-button" />
-                                 </styleClass>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </content></Tab>
-                  <Tab text="Effects">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="tab-content">
-                           <children>
-                              <ListView fx:id="listEffects" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                 <styleClass>
-                                    <String fx:value="basic-element" />
-                                    <String fx:value="basic-list" />
-                                 </styleClass>
-                              </ListView>
-                              <Button fx:id="buttonRefreshEffects" mnemonicParsing="false" prefWidth="1000.0" text="Refresh">
-                                 <styleClass>
-                                    <String fx:value="basic-element" />
-                                    <String fx:value="basic-button" />
-                                 </styleClass>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </content>
-                  </Tab>
+							<content>
+								<VBox spacing="10.0" styleClass="tab-content">
+									<children>
+										<ListView fx:id="listSubmasters" VBox.vgrow="ALWAYS">
+											<styleClass>
+												<String fx:value="basic-element" />
+												<String fx:value="basic-list" />
+											</styleClass>
+										</ListView>
+										<Button fx:id="buttonRefreshSubmasters" mnemonicParsing="false" prefWidth="1000.0" text="Refresh">
+											<styleClass>
+												<String fx:value="basic-element" />
+												<String fx:value="basic-button" />
+											</styleClass>
+										</Button>
+									</children>
+								</VBox>
+							</content>
+						</Tab>
+						<Tab text="Effects">
+							<content>
+								<VBox spacing="10.0" styleClass="tab-content">
+									<children>
+										<ListView fx:id="listEffects" VBox.vgrow="ALWAYS">
+											<styleClass>
+												<String fx:value="basic-element" />
+												<String fx:value="basic-list" />
+											</styleClass>
+										</ListView>
+										<Button fx:id="buttonRefreshEffects" mnemonicParsing="false" prefWidth="1000.0" text="Refresh">
+											<styleClass>
+												<String fx:value="basic-element" />
+												<String fx:value="basic-button" />
+											</styleClass>
+										</Button>
+									</children>
+								</VBox>
+							</content>
+						</Tab>
 					</tabs>
 				</TabPane>
 				<Region prefHeight="200.0" prefWidth="200.0" styleClass="region" />
@@ -194,9 +195,10 @@
 				</ScrollPane>
 				<Region prefHeight="200.0" prefWidth="200.0" styleClass="region" />
 				<ScrollPane fx:id="dragScrollPane" hbarPolicy="NEVER" prefHeight="100.0" prefWidth="0.0" styleClass="pane-selector" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS">
-               <content>
-                  <VBox fx:id="dragContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" />
-               </content></ScrollPane>
+					<content>
+						<VBox fx:id="dragContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" />
+					</content>
+				</ScrollPane>
 			</children>
 		</HBox>
 		<HBox styleClass="buttonbox">
@@ -214,7 +216,7 @@
 						<String fx:value="basic-button" />
 					</styleClass>
 				</Button>
-            <Region HBox.hgrow="ALWAYS" />
+				<Region HBox.hgrow="ALWAYS" />
 				<Button fx:id="buttonDrag" mnemonicParsing="false" text="Drag-Drop">
 					<styleClass>
 						<String fx:value="basic-element" />
@@ -224,9 +226,9 @@
 			</children>
 		</HBox>
 	</children>
-   <stylesheets>
-      <URL value="@../css/basics.css" />
-      <URL value="@../css/template.css" />
-      <URL value="@../css/numberpad.css" />
-   </stylesheets>
+	<stylesheets>
+		<URL value="@../css/basics.css" />
+		<URL value="@../css/template.css" />
+		<URL value="@../css/numberpad.css" />
+	</stylesheets>
 </fx:root>

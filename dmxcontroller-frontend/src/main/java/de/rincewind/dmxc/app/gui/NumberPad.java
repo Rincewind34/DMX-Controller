@@ -48,12 +48,22 @@ public class NumberPad extends TemplateComponent {
 		return "numberpad";
 	}
 	
+	@Override
+	public TemplateComponent newOne() {
+		return new NumberPad();
+	}
+	
 	public ChannelSelection getSelectedChannels() {
 		return this.toolPane.interpreter.getSelectedChannels();
 	}
 	
 	public FaderBase faderBase() {
 		return this.toolPane.faderBase;
+	}
+	
+	@Override
+	protected String getTooltip() {
+		return "Number Pad\n\nThe number pad allows you to flexibly\ncalling a set of dmx channels.";
 	}
 	
 	@Override

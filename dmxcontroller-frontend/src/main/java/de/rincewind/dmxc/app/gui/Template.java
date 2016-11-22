@@ -1,7 +1,5 @@
 package de.rincewind.dmxc.app.gui;
 
-import java.util.function.Supplier;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -11,6 +9,7 @@ import de.rincewind.dmxc.app.api.Submaster;
 import de.rincewind.dmxc.app.gui.util.DragDropHandler;
 import de.rincewind.dmxc.app.gui.util.FileLoader;
 import de.rincewind.dmxc.app.gui.util.NumberPadInterpreter;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -119,8 +118,6 @@ public class Template extends VBox {
 	
 	private DragDropHandler dragHandler;
 	
-	private int index;
-	
 	public Template() {
 		FileLoader.loadFXML(this, "template.fxml", "basics.css", "template.css", "numberpad.css");
 
@@ -150,38 +147,42 @@ public class Template extends VBox {
 		this.buttonRefreshEffects.setOnAction((event) -> {
 			this.fillEffects();
 		});
+		
+		this.content.getChildren().addListener(new ListChangeListener<Node>() {
+
+			@Override
+			public void onChanged(Change<? extends Node> change) {
+				while (change.next()) {
+					for (Node node : change.getAddedSubList()) {
+						if (node instanceof TemplateComponent) {
+							((TemplateComponent) node).setRoot(Template.this);
+						}
+					}
+					
+					for (Node node : change.getRemoved()) {
+						if (node instanceof TemplateComponent) {
+							((TemplateComponent) node).setRoot(null);
+						}
+					}
+				}
+			}
+			
+		});
 
 		this.root.getChildren().remove(this.selectorTabPane);
 		this.root.getChildren().remove(this.dragScrollPane);
 		
 		this.dragHandler = new DragDropHandler(this.content, this.dragContent);
+		this.dragHandler.registerInfiniteNode(new Fader());
+		this.dragHandler.registerInfiniteNode(new MasterFader());
+		this.dragHandler.registerInfiniteNode(new NumberPad());
+		this.dragHandler.registerInfiniteNode(new RGBFader());
+		this.dragHandler.registerInfiniteNode(new RGBWFader());
+		this.dragHandler.registerInfiniteNode(new SubmasterFader());
+		this.dragHandler.registerInfiniteNode(new EffectFader());
+		this.dragHandler.registerInfiniteNode(new ShowController());
 		
 		this.dragScrollPane.setFitToWidth(true);
-		this.dragScrollPane.setContent(this.dragContent);
-		
-		this.addDragContent(() -> {
-			return new Fader();
-		});
-		
-		this.addDragContent(() -> {
-			return new MasterFader();
-		});
-		
-		this.addDragContent(() -> {
-			return new NumberPad();
-		});
-		
-		this.addDragContent(() -> {
-			return new RGBFader();
-		});
-		
-		this.addDragContent(() -> {
-			return new RGBWFader();
-		});
-		
-		this.addDragContent(() -> {
-			return new SubmasterFader();
-		});
 	}
 	
 	public Template(JsonObject object) {
@@ -211,15 +212,13 @@ public class Template extends VBox {
 
 	public void addComponent(TemplateComponent component) {
 		this.content.getChildren().add(component);
-		this.dragHandler.registerNode(component, component.getDragDropImage());
+		this.dragHandler.registerNode(component);
 		component.setContent(this.displayContent);
-		component.setRoot(this);
 		component.update();
 	}
 
 	public void removeComponent(TemplateComponent component) {
 		this.content.getChildren().remove(component);
-		component.setRoot(null);
 	}
 	
 	public Fadeable getCurrentSelection() {
@@ -295,16 +294,6 @@ public class Template extends VBox {
 			this.fillSubmasters();
 			this.fillEffects();
 		}
-	}
-	
-	private void addDragContent(Supplier<TemplateComponent> supplier) {
-		this.dragHandler.registerInfiniteNode(() -> {
-			TemplateComponent component = supplier.get();
-			component.setContent(TemplateContent.DRAG_DROP);
-			return component;
-		}, supplier.get().getDragDropImage(), this.index);
-		
-		this.index = this.index + 1;
 	}
 	
 }

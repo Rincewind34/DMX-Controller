@@ -1,5 +1,6 @@
 package de.rincewind.dmxc.common.packets.outgoing;
 
+import de.rincewind.dmxc.common.packets.Action;
 import de.rincewind.dmxc.common.util.ByteUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -49,7 +50,4 @@ public class PacketPlayOutSubmaster extends PacketPlayOut {
 		return this.submaster;
 	}
 	
-
-	
-
 }

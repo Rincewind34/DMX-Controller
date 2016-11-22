@@ -41,8 +41,18 @@ public class HardFader extends TemplateComponent {
 		return "hardfader";
 	}
 	
+	@Override
+	public TemplateComponent newOne() {
+		return new HardFader();
+	}
+	
 	public FaderBase faderBase() {
 		return this.toolController.base;
+	}
+	
+	@Override
+	protected String getTooltip() {
+		return "Effects";
 	}
 	
 	@Override

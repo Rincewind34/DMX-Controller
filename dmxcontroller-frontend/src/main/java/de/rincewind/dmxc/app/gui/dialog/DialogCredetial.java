@@ -11,17 +11,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class DialogCredetial extends Dialog<Credential> {
-
+	
+	public static void setupButton(Node button) {
+		button.setStyle("-fx-background-radius: 0.0px");
+	}
+	
 	public DialogCredetial(Credential credential) {
 		ButtonType cancelType = new ButtonType("Abbrechen", ButtonData.CANCEL_CLOSE);
 		ButtonType connectType = new ButtonType("Verbinden", ButtonData.OK_DONE);
 
-		this.setTitle("DMXController - Verbindungsdaten");
-		this.setHeaderText("Bitte trage die Verbindungsdaten ein.");
+		this.setTitle("DMXController - Call detail records");
+		this.setHeaderText("Enter the call detail records.");
 		this.getDialogPane().getButtonTypes().addAll(cancelType, connectType);
 
 		Node btnConnect = this.getDialogPane().lookupButton(connectType);
-
+		
+		DialogCredetial.setupButton(btnConnect);
+		DialogCredetial.setupButton(this.getDialogPane().lookupButton(cancelType));
+		
 		DialogContent content = this.new DialogContent(btnConnect, credential);
 		FileLoader.loadFXML(content, "dialog/credential.fxml");
 		content.init();
@@ -36,7 +43,8 @@ public class DialogCredetial extends Dialog<Credential> {
 			}
 		});
 	}
-
+	
+	
 	private class DialogContent extends VBox {
 		
 		@FXML

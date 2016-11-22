@@ -63,6 +63,11 @@ public class Fader extends TemplateComponent {
 	}
 	
 	@Override
+	public TemplateComponent newOne() {
+		return new Fader();
+	}
+	
+	@Override
 	public void update() {
 		if (this.faderBase().getTarget() instanceof Channel || this.faderBase().getTarget() instanceof ChannelSelection) {
 			TemplateComponent.setBackgroundColor(this.toolPane, Fader.COLOR_CHANNEL);
@@ -77,6 +82,11 @@ public class Fader extends TemplateComponent {
 	
 	public FaderBase faderBase() {
 		return this.toolPane.base;
+	}
+	
+	@Override
+	protected String getTooltip() {
+		return "Fader\n\nThe fader can be used to control every\ncomponent like a dmx channel, submasters\nor effects.";
 	}
 	
 	@Override

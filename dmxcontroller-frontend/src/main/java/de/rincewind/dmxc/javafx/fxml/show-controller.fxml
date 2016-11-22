@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView fx:id="listScenes" prefHeight="200.0" prefWidth="200.0">
+         <styleClass>
+            <String fx:value="basic-list" />
+            <String fx:value="basic-element" />
+            <String fx:value="scene-list" />
+         </styleClass>
+      </ListView>
+      <VBox styleClass="controller">
+         <children>
+            <HBox>
+               <children>
+                  <Label styleClass="basic-element" text="Current Scene: " />
+                  <Label fx:id="labelScene" styleClass="basic-element" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label styleClass="basic-element" text="Current State: " />
+                  <Label fx:id="labelState" styleClass="basic-element" />
+               </children>
+            </HBox>
+            <Region VBox.vgrow="ALWAYS" />
+            <HBox>
+               <children>
+                  <Button fx:id="buttonPrevious" mnemonicParsing="false" text="Previous">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="basic-element" />
+                        <String fx:value="basic-button" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="buttonNext" mnemonicParsing="false" text="Next">
+                     <styleClass>
+                        <String fx:value="basic-element" />
+                        <String fx:value="basic-button" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+            <ToggleButton fx:id="buttonActivate" mnemonicParsing="false" text="Activate">
+               <styleClass>
+                  <String fx:value="basic-element" />
+                  <String fx:value="basic-toggle-button" />
+               </styleClass>
+            </ToggleButton>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" styleClass="fader-box">
+         <children>
+            <Slider fx:id="fader" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="basic-slider" />
+                  <String fx:value="basic-element" />
+               </styleClass>
+            </Slider>
+            <Button fx:id="buttonFlash" mnemonicParsing="false" text="Flash">
+               <styleClass>
+                  <String fx:value="basic-button" />
+                  <String fx:value="basic-element" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <stylesheets>
+            <URL value="@../css/basics.css" />
+            <URL value="@../css/fader.css" />
+         </stylesheets>
+      </VBox>
+   </children>
+   <styleClass>
+      <String fx:value="basic-container" />
+      <String fx:value="show-controller" />
+   </styleClass>
+   <stylesheets>
+      <URL value="@../css/basics.css" />
+      <URL value="@../css/showcontroller.css" />
+   </stylesheets>
+</fx:root>

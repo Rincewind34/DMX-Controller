@@ -1,4 +1,4 @@
-package de.rincewind.dmxc.common.packets.outgoing;
+package de.rincewind.dmxc.common.packets;
 
 public enum Action {
 

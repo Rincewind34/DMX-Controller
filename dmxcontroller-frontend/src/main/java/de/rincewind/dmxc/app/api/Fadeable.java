@@ -24,6 +24,8 @@ public abstract class Fadeable {
 			fadeable = Submaster.get(data);
 		} else if (type.equals("effect")) {
 			fadeable = Effect.get(data);
+		} else if (type.equals("show")) {
+			fadeable = Show.instance();
 		}
 		
 		return fadeable;

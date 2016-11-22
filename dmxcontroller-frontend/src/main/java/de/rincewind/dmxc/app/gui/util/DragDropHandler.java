@@ -1,9 +1,8 @@
 package de.rincewind.dmxc.app.gui.util;
 
-import java.util.function.Supplier;
-
+import de.rincewind.dmxc.app.gui.TemplateComponent;
+import de.rincewind.dmxc.app.gui.TemplateContent;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -12,13 +11,11 @@ import javafx.scene.layout.Pane;
 public class DragDropHandler {
 	
 	private int index;
-	private Image image;
-	private Supplier<Node> supplier;
 	
 	private Pane root;
 	private Pane creator;
 	
-	private Node current;
+	private TemplateComponent current;
 	
 	private boolean running;
 	private boolean infiniteNode;
@@ -39,11 +36,11 @@ public class DragDropHandler {
 				if (!this.infiniteNode) {
 					this.root.getChildren().remove(this.current);
 				} else {
-					this.registerInfiniteNode(this.supplier, this.image, this.index);
+					this.registerInfiniteNode(this.current.newOne(), this.index);
 				}
 				
 				this.root.getChildren().add(this.current);
-				this.registerNode(this.current, this.image);
+				this.registerNode(this.current);
 				this.current = null;
 				success = true;
 			}
@@ -74,55 +71,62 @@ public class DragDropHandler {
 		});
 	}
 	
-	public void registerNode(Node node, Image image) {
-		this.setupNode(node, image);
+	public void start() {
+		this.running = true;
+	}
+	
+	public void stop() {
+		this.running = false;
+	}
+	
+	public void registerNode(TemplateComponent component) {
+		this.setupNode(component);
 		
-		node.setOnDragDetected((event) -> {
+		component.setOnDragDetected((event) -> {
 			if (!this.running) {
 				return;
 			}
 			
 			this.infiniteNode = false;
-			this.current = node;
-			this.image = image;
+			this.current = component;
 			
 			ClipboardContent content = new ClipboardContent();
 			content.putString("test");
 			
-			Dragboard board = node.startDragAndDrop(TransferMode.ANY);
-			board.setDragView(image);
+			Dragboard board = component.startDragAndDrop(TransferMode.ANY);
+			board.setDragView(component.getDragDropImage());
 			board.setContent(content);
 			
 			event.consume();
 		});
 		
-		node.setOnDragEntered((event) -> {
-			if (event.getGestureSource() != node && this.current != null) {
-				node.setOpacity(0.6D);
+		component.setOnDragEntered((event) -> {
+			if (event.getGestureSource() != component && this.current != null) {
+				component.setOpacity(0.6D);
 			}
 		});
 		
-		node.setOnDragExited((event) -> {
-			if (event.getGestureSource() != node && this.current != null) {
-				node.setOpacity(1.0D);
+		component.setOnDragExited((event) -> {
+			if (event.getGestureSource() != component && this.current != null) {
+				component.setOpacity(1.0D);
 			}
 		});
 		
-		node.setOnDragDropped((event) -> {
+		component.setOnDragDropped((event) -> {
 			boolean success = false;
 			
 			if (this.current != null) {
-				node.setOpacity(1.0D);
-				int targetIndex = this.root.getChildren().indexOf(node);
+				component.setOpacity(1.0D);
+				int targetIndex = this.root.getChildren().indexOf(component);
 				
 				if (!this.infiniteNode) {
 					this.root.getChildren().remove(this.current);
 				} else {
-					this.registerInfiniteNode(this.supplier, this.image, this.index);
+					this.registerInfiniteNode(this.current.newOne(), this.index);
 				}
 					
 				this.root.getChildren().add(targetIndex, this.current);
-				this.registerNode(this.current, this.image);
+				this.registerNode(this.current);
 				this.current = null;
 				
 				success = true;
@@ -133,34 +137,36 @@ public class DragDropHandler {
 		});
 	}
 	
-	public void registerInfiniteNode(Supplier<Node> supplier, Image image, int index) {
-		Node node = supplier.get();
+	public void registerInfiniteNode(TemplateComponent component) {
+		this.registerInfiniteNode(component, this.creator.getChildren().size());
+	}
+	
+	private void registerInfiniteNode(TemplateComponent component, int index) {
+		component.setContent(TemplateContent.DRAG_DROP);
 		
-		this.creator.getChildren().add(index, node);
-		this.setupNode(node, image);
+		this.creator.getChildren().add(index, component);
+		this.setupNode(component);
 		
-		node.setOnDragDetected((event) -> {
+		component.setOnDragDetected((event) -> {
 			if (!this.running) {
 				return;
 			}
 			
 			this.infiniteNode = true;
-			this.current = node;
-			this.image = image;
-			this.supplier = supplier;
+			this.current = component;
 			this.index = index;
 			
 			ClipboardContent content = new ClipboardContent();
-			content.putString("test");
+			content.putString(component.getType());
 			
-			Dragboard board = node.startDragAndDrop(TransferMode.ANY);
-			board.setDragView(image);
+			Dragboard board = component.startDragAndDrop(TransferMode.ANY);
+			board.setDragView(component.getDragDropImage());
 			board.setContent(content);
 			
 			event.consume();
 		});
 		
-		node.setOnDragDropped((event) -> {
+		component.setOnDragDropped((event) -> {
 			boolean success = false;
 			
 			if (this.current != null) {
@@ -177,7 +183,7 @@ public class DragDropHandler {
 		});
 	}
 	
-	private void setupNode(Node node, Image image) {
+	private void setupNode(Node node) {
 		node.setOnDragOver((event) -> {
 			if (event.getGestureSource() != node && this.current != null) {
 				event.acceptTransferModes(TransferMode.ANY);
@@ -189,17 +195,6 @@ public class DragDropHandler {
 		node.setOnDragDone((event) -> {
 			event.consume();
 		});
-//		
-//		Tooltip tooltip = new Tooltip("Test");
-//		Tooltip.install(node, tooltip);
-	}
-	
-	public void start() {
-		this.running = true;
-	}
-	
-	public void stop() {
-		this.running = false;
 	}
 	
 }

@@ -3,6 +3,8 @@ package de.rincewind.dmxc.app.gui.util;
 import de.rincewind.dmxc.app.api.Fadeable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
@@ -20,6 +22,9 @@ public class FaderBase {
 		this.fader = fader;
 		this.flashButton = flashButton;
 		this.pushZeroButton = pushZeroButton;
+		
+		this.value = new SimpleIntegerProperty(-1);
+		this.target = new SimpleObjectProperty<>(null);
 		
 		if (this.flashButton != null) {
 			this.flashButton.armedProperty().addListener((observeable, oldValue, newValue) -> {
@@ -45,11 +50,15 @@ public class FaderBase {
 			this.fireChange();
 		});
 		
-		this.value.addListener((observeable, oldValue, newValue) -> {
-			if (this.target.get() != null) {
-				this.target.get().update(this.getValue());
+		this.target.addListener((observeable, oldValue, newValue) -> {
+			if (oldValue != null) {
+				oldValue.update(null);
 			}
+			
+			this.setDisabled(newValue == null);
 		});
+		
+		this.setDisabled(this.getTarget() == null);
 	}
 	
 	public void setTarget(Fadeable target) {
@@ -83,6 +92,22 @@ public class FaderBase {
 	
 	public void fireChange() {
 		this.value.set(this.calculateValue());
+		
+		if (this.target.get() != null) {
+			this.target.get().update(this.getValue());
+		}
+	}
+	
+	public void setDisabled(boolean value) {
+		this.fader.setDisable(value);
+		
+		if (this.flashButton != null) {
+			this.flashButton.setDisable(value);
+		}
+		
+		if (this.pushZeroButton != null) {
+			this.pushZeroButton.setDisable(value);
+		}
 	}
 	
 	public boolean isFlashed() {

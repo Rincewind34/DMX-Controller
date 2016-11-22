@@ -4,6 +4,7 @@ import de.rincewind.dmxc.app.Main;
 import de.rincewind.dmxc.app.gui.dialog.Credential;
 import de.rincewind.dmxc.app.network.listeners.ListenerAccess;
 import de.rincewind.dmxc.app.network.listeners.ListenerEffect;
+import de.rincewind.dmxc.app.network.listeners.ListenerShow;
 import de.rincewind.dmxc.app.network.listeners.ListenerSubmaster;
 import de.rincewind.dmxc.common.Console;
 import de.rincewind.dmxc.common.packets.incoming.PacketPlayIn;
@@ -158,6 +159,7 @@ public class Client {
 		this.nettyCore.addListener(new ListenerAccess());
 		this.nettyCore.addListener(new ListenerSubmaster());
 		this.nettyCore.addListener(new ListenerEffect());
+		this.nettyCore.addListener(new ListenerShow());
 	}
 
 }

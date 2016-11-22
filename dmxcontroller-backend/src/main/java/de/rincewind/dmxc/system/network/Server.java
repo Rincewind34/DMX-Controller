@@ -10,6 +10,7 @@ import de.rincewind.dmxc.system.network.listeners.ListenerLogin;
 import de.rincewind.dmxc.system.network.listeners.ListenerUpdateChannel;
 import de.rincewind.dmxc.system.network.listeners.ListenerUpdateEffect;
 import de.rincewind.dmxc.system.network.listeners.ListenerUpdateMaster;
+import de.rincewind.dmxc.system.network.listeners.ListenerUpdateShow;
 import de.rincewind.dmxc.system.network.listeners.ListenerUpdateSubmaster;
 import io.netty.channel.Channel;
 
@@ -150,6 +151,7 @@ public class Server {
 		this.nettyCore.addListener(new ListenerUpdateChannel());
 		this.nettyCore.addListener(new ListenerUpdateSubmaster());
 		this.nettyCore.addListener(new ListenerUpdateEffect());
+		this.nettyCore.addListener(new ListenerUpdateShow());
 	}
 	
 }

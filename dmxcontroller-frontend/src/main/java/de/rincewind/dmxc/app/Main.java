@@ -115,15 +115,16 @@ public class Main extends Application {
 		
 		if (!Main.client.isConnected()) {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setContentText("Der Server konnte nicht gefunden werden!");
+			alert.setContentText("The server could not be found!");
 			Main.connectResponse(alert, new Credential());
 		}
 	}
 	
 	public static void connectResponse(Alert alert, Credential backup) {
 		Platform.runLater(() -> {
-			alert.setTitle("DMXController - Verbindungsaufbau fehlgeschalgen");
-			alert.setHeaderText("Es konnte keine Verbindung zum Server ausgebaut werden");
+			DialogCredetial.setupButton(alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)));
+			alert.setTitle("DMXController - Connection establishment failed");
+			alert.setHeaderText("The connection to the server could not be established!");
 			alert.setAlertType(AlertType.ERROR);
 			alert.showAndWait();
 			Main.openConnectDialog(backup);
@@ -158,6 +159,10 @@ public class Main extends Application {
 
 	public static Client client() {
 		return Main.client;
+	}
+	
+	public static Stage stage() {
+		return Main.stage;
 	}
 
 }

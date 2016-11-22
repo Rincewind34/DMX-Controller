@@ -9,10 +9,14 @@ public class UpdateTask implements Runnable {
 			
 			Main.environment().updateChangedValues();
 			
-			try {
-				Thread.sleep(50 - (System.currentTimeMillis() - current));
-			} catch (InterruptedException e) {
-				// No printing
+			long sleep = 50 - (System.currentTimeMillis() - current);
+			
+			if (sleep > 0) {
+				try {
+					Thread.sleep(sleep);
+				} catch (InterruptedException e) {
+					// No printing
+				}
 			}
 		}
 	}

@@ -1,14 +1,16 @@
 package de.rincewind.dmxc.system.network;
 
-import de.rincewind.dmxc.common.packets.outgoing.Action;
+import de.rincewind.dmxc.common.packets.Action;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOut;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutAccess;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutAccess.LoginError;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutEffect;
+import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutShow;
 import de.rincewind.dmxc.common.packets.outgoing.PacketPlayOutSubmaster;
 import de.rincewind.dmxc.system.Account;
 import de.rincewind.dmxc.system.Main;
 import de.rincewind.dmxc.system.environment.Effect;
+import de.rincewind.dmxc.system.environment.Scene;
 import de.rincewind.dmxc.system.environment.Submaster;
 import io.netty.channel.Channel;
 
@@ -57,6 +59,10 @@ public class Client {
 		
 		for (Effect effect : Main.environment().getEffects()) {
 			this.sendPacket(new PacketPlayOutEffect(effect.getName(), Action.ADD));
+		}
+		
+		for (Scene scene : Main.environment().getShow().getScenes()) {
+			this.sendPacket(new PacketPlayOutShow(scene.getName()));
 		}
 	}
 	
